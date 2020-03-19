@@ -50,7 +50,7 @@ public class Configuration implements IConfiguration {
 	/** list of Sequences */
 	private ArrayList<Sequence> sequences = null;
 
-	/** list of Sequences */
+	/** list of Tasks */
 	private ArrayList<Task> tasks = null;
 
 	/** list of EventContents */
@@ -1392,7 +1392,7 @@ public class Configuration implements IConfiguration {
 		return tasks.iterator();
 	}
 
-	/** retrieve sequence iterator */
+	/** retrieve task iterator */
 	public Iterator<Task> orderedTaskIterator() {
 		ArrayList<Task> result = new ArrayList<Task>();
 		Iterator<Task> itT = taskIterator();

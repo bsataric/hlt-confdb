@@ -440,6 +440,9 @@ abstract public class ReferenceContainer extends DatabaseEntry implements Compar
 			} else if (entry instanceof SequenceReference) {
 				Sequence sequence = (Sequence) entry.parent();
 				getPathsAmongEntries(sequence.entryIterator(), paths);
+			} else if (entry instanceof TaskReference) {
+				Task task = (Task) entry.parent();
+				getPathsAmongEntries(task.entryIterator(), paths);
 			}
 		}
 	}
@@ -468,7 +471,7 @@ abstract public class ReferenceContainer extends DatabaseEntry implements Compar
 				PathReference ref = (PathReference) entry;
 				Path path = (Path) ref.parent();
 				getTasksAmongEntries(path.entryIterator(), tasks);
-			} else if (entry instanceof SequenceReference) {
+			} else if (entry instanceof TaskReference) {
 				Task task = (Task) entry.parent();
 				tasks.add(task);
 				getTasksAmongEntries(task.entryIterator(), tasks);
@@ -491,6 +494,9 @@ abstract public class ReferenceContainer extends DatabaseEntry implements Compar
 			} else if (entry instanceof SequenceReference) {
 				Sequence sequence = (Sequence) entry.parent();
 				getModulesAmongEntries(sequence.entryIterator(), modules);
+			} else if (entry instanceof TaskReference) {
+				Task task = (Task) entry.parent();
+				getModulesAmongEntries(task.entryIterator(), modules);
 			}
 		}
 	}
@@ -510,6 +516,9 @@ abstract public class ReferenceContainer extends DatabaseEntry implements Compar
 			} else if (entry instanceof SequenceReference) {
 				Sequence sequence = (Sequence) entry.parent();
 				getOutputsAmongEntries(sequence.entryIterator(), outputs);
+			} else if (entry instanceof TaskReference) {
+				Task task = (Task) entry.parent();
+				getOutputsAmongEntries(task.entryIterator(), outputs);
 			}
 		}
 	}
@@ -525,6 +534,9 @@ abstract public class ReferenceContainer extends DatabaseEntry implements Compar
 			} else if (entry instanceof SequenceReference) {
 				Sequence sequence = (Sequence) entry.parent();
 				getReferences(sequence.entryIterator(), references);
+			} else if (entry instanceof TaskReference) {
+				Task task = (Task) entry.parent();
+				getReferences(task.entryIterator(), references);
 			}
 		}
 	}

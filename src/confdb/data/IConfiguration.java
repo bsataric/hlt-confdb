@@ -238,6 +238,24 @@ public interface IConfiguration extends Serializable
     public Iterator<Sequence> orderedSequenceIterator();
     
     
+    /** number of Tasks */
+    public int taskCount();
+    
+    /** get i-th Task */
+    public Task task(int i);
+
+    /** get task by name */
+    public Task task(String taskName);
+    
+    /** index of a certain Task */
+    public int indexOfTask(Task task);
+
+    /** retrieve task iterator */
+    public Iterator<Task> taskIterator();
+    
+    /** retrieve task iterator */
+    public Iterator<Task> orderedTaskIterator();
+    
     /** number of event contents */
     public int contentCount();
     
