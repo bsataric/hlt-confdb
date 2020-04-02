@@ -1518,6 +1518,7 @@ public class ConfDbGUI {
 	}
 
 	/** reset current and import configuration */
+	private void resetConfiguration() {
 		currentRelease.clearInstances();
 
 		currentConfig.reset();
