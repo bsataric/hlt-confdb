@@ -278,6 +278,13 @@ public class ConfigurationModifier implements IConfiguration {
 			if (sequence != null && sequences.indexOf(sequence) < 0)
 				sequences.add(sequence);
 		}
+		
+		Iterator<String> itT = modifications.requestedTaskIterator();
+		while (itT.hasNext()) {
+			Task task = master.task(itT.next());
+			if (task != null && tasks.indexOf(task) < 0)
+				tasks.add(task);
+		}
 
 		Iterator<String> itM = modifications.requestedModuleIterator();
 		while (itM.hasNext()) {
@@ -364,6 +371,45 @@ public class ConfigurationModifier implements IConfiguration {
 		}
 		return result.iterator();
 	}
+	
+	
+	/**
+	 * order tasks such that each task is defined before being referenced
+	 */
+	public Iterator<Task> orderedTaskIterator() {
+		ArrayList<Task> result = new ArrayList<Task>();
+		Iterator<Task> itT = taskIterator();
+		while (itT.hasNext()) {
+			Task task = itT.next();
+			int indexT = result.indexOf(task);
+			if (indexT < 0) {
+				indexT = result.size();
+				result.add(task);
+			}
+			Iterator<Reference> itR = task.entryIterator();
+			while (itR.hasNext()) {
+				Reference reference = itR.next();
+				Referencable parent = reference.parent();
+				if (parent instanceof Task) {
+					Task t = (Task) parent;
+					if (isModified && !tasks.contains(t))
+						continue;
+					int indexR = result.indexOf(t);
+					if (indexR < 0) {
+						indexR = indexT;
+						indexT++;
+						result.add(indexR, t);
+					} else if (indexR > indexT) {
+						result.remove(indexR);
+						indexR = indexT;
+						indexT++;
+						result.add(indexR, t);
+					}
+				}
+			}
+		}
+		return result.iterator();
+	}
 
 	/** reset all modifications */
 	public void reset() {
@@ -378,6 +424,7 @@ public class ConfigurationModifier implements IConfiguration {
 		outputs.clear();
 		paths.clear();
 		sequences.clear();
+		tasks.clear();
 		contents.clear();
 		streams.clear();
 		datasets.clear();
@@ -925,22 +972,19 @@ public class ConfigurationModifier implements IConfiguration {
 		blocks.add(block);
 	}
 
-	@Override
+	/** number of Tasks */
 	public int taskCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (isModified) ? tasks.size() : master.taskCount();
 	}
 
-	@Override
+	/** get i-th Task */
 	public Task task(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		return (isModified) ? tasks.get(i) : master.task(i);
 	}
 
-	@Override
+	/** get Task by name */
 	public Task task(String taskName) {
-		// TODO Auto-generated method stub
-		return null;
+		return master.task(taskName);
 	}
 
 	@Override
@@ -949,15 +993,8 @@ public class ConfigurationModifier implements IConfiguration {
 		return 0;
 	}
 
-	@Override
+	/** retrieve task iterator */
 	public Iterator<Task> taskIterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Iterator<Task> orderedTaskIterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return (isModified) ? tasks.iterator() : master.taskIterator();
 	}
 }

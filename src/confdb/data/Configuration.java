@@ -1422,7 +1422,7 @@ public class Configuration implements IConfiguration {
 		}
 		return result.iterator();
 	}
-	
+
 	/** insert task */
 	public Task insertTask(int i, String taskName) {
 		Task task = new Task(taskName);
@@ -1448,7 +1448,7 @@ public class Configuration implements IConfiguration {
 		hasChanged = true;
 		return true;
 	}
-	
+
 	/** remove a task */
 	public void removeTask(Task task) {
 		while (task.referenceCount() > 0) {
@@ -1474,7 +1474,6 @@ public class Configuration implements IConfiguration {
 		tasks.remove(index);
 		hasChanged = true;
 	}
-	
 
 	/** insert a task reference into another path */
 	public TaskReference insertTaskReference(ReferenceContainer parent, int i, Task task) {

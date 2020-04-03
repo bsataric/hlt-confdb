@@ -24,7 +24,7 @@ public class Task extends ReferenceContainer {
 	// member functions
 	//
 
-	/** insert a module into the Task */
+	/** insert a module or task into the Task */
 	public void insertEntry(int i, Reference reference) {
 		if (reference instanceof ModuleReference || reference instanceof TaskReference
 				|| reference instanceof OutputModuleReference) {
