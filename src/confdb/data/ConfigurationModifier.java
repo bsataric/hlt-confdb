@@ -987,10 +987,9 @@ public class ConfigurationModifier implements IConfiguration {
 		return master.task(taskName);
 	}
 
-	@Override
+	/** index of a certain Task */
 	public int indexOfTask(Task task) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (isModified) ? tasks.indexOf(task) : master.indexOfTask(task);
 	}
 
 	/** retrieve task iterator */
