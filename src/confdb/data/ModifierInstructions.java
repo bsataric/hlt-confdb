@@ -717,7 +717,7 @@ public class ModifierInstructions {
 				if (isUndefined(parent))
 					continue;
 				if (parent instanceof Task) // TODO: should here also be sequences???
-					requestSequence(name);
+					requestTask(name);
 				else if (parent instanceof ModuleInstance)
 					requestModule(name);
 			}
@@ -908,7 +908,7 @@ public class ModifierInstructions {
 		return result;
 	}
 
-	/** check if a sequence or module is specifically requested */
+	/** check if a sequence, task or module is specifically requested */
 	public boolean isRequested(Referencable moduleOrSequenceOrTask) {
 		if (moduleOrSequenceOrTask instanceof Sequence)
 			return (requestedSequences.contains(moduleOrSequenceOrTask.name()));
@@ -921,7 +921,7 @@ public class ModifierInstructions {
 		return false;
 	}
 
-	/** check if a sequence or task or module should be undefined */
+	/** check if a sequence, task or module should be undefined */
 	public boolean isUndefined(Referencable moduleOrSequenceOrTask) {
 		if (moduleOrSequenceOrTask instanceof Sequence)
 			return (undefineAllSequences) ? true : (undefinedSequences.contains(moduleOrSequenceOrTask.name()));
