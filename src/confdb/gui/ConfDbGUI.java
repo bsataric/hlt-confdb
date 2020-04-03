@@ -2378,11 +2378,12 @@ public class ConfDbGUI {
 		return text;
 	}
 
-	/** return a text list of Paths which contains the current Module/Sequence. */
+	/** return a text list of Paths which contains the current Module/Sequence/Task. */
 	public String getAssignedPaths() {
 		String text = "";
 		ModuleInstance moduleInstance = null;
 		Sequence sequence = null;
+		Task task = null;
 		Path[] paths = null;
 
 		if (currentParameterContainer instanceof ModuleInstance) {
@@ -2391,6 +2392,10 @@ public class ConfDbGUI {
 		} else if (currentParameterContainer instanceof Sequence) {
 			sequence = (Sequence) currentParameterContainer;
 			paths = sequence.parentPaths();
+
+		} else if (currentParameterContainer instanceof Task) {
+			task = (Task) currentParameterContainer;
+			paths = task.parentPaths();
 
 		} else
 			return "";
