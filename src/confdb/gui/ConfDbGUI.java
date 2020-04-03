@@ -2281,6 +2281,12 @@ public class ConfDbGUI {
 					text = "<html>" + instance.name();
 					text += "<html>";
 
+				} else if (selectedNode instanceof TaskReference) {
+					TaskReference reference = (TaskReference) selectedNode;
+					Task instance = (Task) reference.parent();
+					text = "<html>" + instance.name();
+					text += "<html>";
+
 				} else if (selectedNode instanceof Stream) {
 					Stream stream = (Stream) selectedNode;
 					text = "Event Content: " + stream.parentContent().name();
