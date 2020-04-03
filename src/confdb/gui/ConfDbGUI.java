@@ -984,6 +984,31 @@ public class ConfDbGUI {
 					}
 				}
 			}
+			
+			if (applyTo.equals("All") || applyTo.equals("Tasks")) {
+				Task task = null;
+				for (int i = 0; i < currentConfig.taskCount(); i++) {
+					task = currentConfig.task(i);
+					oldName = task.name();
+					if (oldName.matches(filPattern)) {
+						newName = oldName.replace(oldPattern, newPattern);
+						if (!oldName.equals(newName)) {
+							if (currentConfig.isUniqueQualifier(newName)) {
+								System.out.println("SmartRenaming Task: " + newName + " [" + oldName + "]");
+								try {
+									task.setName(newName);
+									treeModelCurrentConfig.nodeChanged(task);
+								} catch (DataException e) {
+									System.err.println(e.getMessage());
+								}
+							} else {
+								System.out.println("SmartRenaming Task: " + newName + " [" + oldName
+										+ "] not changed: new name already exists!");
+							}
+						}
+					}
+				}
+			}
 
 			if (applyTo.equals("All") || applyTo.equals("Paths")) {
 				Path path = null;
