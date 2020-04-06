@@ -179,6 +179,8 @@ public class ConfDbGUI {
 	private JScrollPane TAB_containedInPaths = new JScrollPane();
 	private JEditorPane jEditorContainedInSequence = new JEditorPane();
 	private JScrollPane TAB_containedInSequence = new JScrollPane();
+	private JEditorPane jEditorContainedInTask = new JEditorPane();
+	private JScrollPane TAB_containedInTask = new JScrollPane();
 
 	// Path fields in right upper panel
 	private JPanel jPanelPathFields = new JPanel();
@@ -984,7 +986,7 @@ public class ConfDbGUI {
 					}
 				}
 			}
-			
+
 			if (applyTo.equals("All") || applyTo.equals("Tasks")) {
 				Task task = null;
 				for (int i = 0; i < currentConfig.taskCount(); i++) {
@@ -2378,7 +2380,9 @@ public class ConfDbGUI {
 		return text;
 	}
 
-	/** return a text list of Paths which contains the current Module/Sequence/Task. */
+	/**
+	 * return a text list of Paths which contains the current Module/Sequence/Task.
+	 */
 	public String getAssignedPaths() {
 		String text = "";
 		ModuleInstance moduleInstance = null;
@@ -2443,8 +2447,7 @@ public class ConfDbGUI {
 			return "";
 		return text;
 	}
-	
-	
+
 	/**
 	 * return a html string format with a list of Tasks containing the current
 	 * parameter container. Used to fill ContainedInTasks tab. (bug 88620).
@@ -2492,6 +2495,7 @@ public class ConfDbGUI {
 		String tag = null;
 		Path path;
 		Sequence sequence;
+		Task task;
 		String[] unresolved;
 		if (currentParameterContainer instanceof Path) {
 			path = (Path) currentParameterContainer;
@@ -2499,6 +2503,9 @@ public class ConfDbGUI {
 		} else if (currentParameterContainer instanceof Sequence) {
 			sequence = (Sequence) currentParameterContainer;
 			unresolved = sequence.unresolvedInputTags();
+		} else if (currentParameterContainer instanceof Task) {
+			task = (Task) currentParameterContainer;
+			unresolved = task.unresolvedInputTags();
 		} else
 			return "ERROR: getUnresolvedInputTagsSummary(): unknown currentParameterContainer";
 
@@ -2822,7 +2829,9 @@ public class ConfDbGUI {
 	/** display the configuration snippet for currently selected component */
 	private void displaySnippet() {
 		// by default some tabs are disabled.
-		if ((!(currentParameterContainer instanceof Path)) || (!(currentParameterContainer instanceof Sequence)))
+		if ((!(currentParameterContainer instanceof Path)) || 
+			(!(currentParameterContainer instanceof Sequence)) ||
+			(!(currentParameterContainer instanceof Task)))
 			restoreRightLowerTabs();
 
 		if (currentParameterContainer == currentConfig.psets()) {
@@ -2876,6 +2885,7 @@ public class ConfDbGUI {
 
 			jEditorContainedInPaths.setText(this.getAssignedPaths());
 			jEditorContainedInSequence.setText(this.getAssignedSequences());
+			jEditorContainedInTask.setText(this.getAssignedTasks());
 
 			ModuleInstance module = (ModuleInstance) currentParameterContainer;
 			try {
@@ -2902,6 +2912,19 @@ public class ConfDbGUI {
 		} else if (currentParameterContainer instanceof Sequence) {
 			Sequence sequence = (Sequence) currentParameterContainer;
 			jEditorPaneSnippet.setText(cnvEngine.getSequenceWriter().toString(sequence, cnvEngine, "  "));
+
+			jTabbedPaneRightLower.setEnabledAt(2, true); // sets third tab enabled
+
+			jEditorPaneUnresolvedITags.setText(getUnresolvedInputTagsSummary());
+
+			jTabbedPaneRightLower.setEnabledAt(3, true); // sets second tab enabled
+			jEditorContainedInPaths.setText(this.getAssignedPaths());
+
+			jTabbedPaneRightLower.setEnabledAt(4, true); // sets containedInSequence tab enabled
+			jEditorContainedInSequence.setText(this.getAssignedSequences());
+		} else if (currentParameterContainer instanceof Task) {
+			Task task = (Task) currentParameterContainer;
+			jEditorPaneSnippet.setText(cnvEngine.getTaskWriter().toString(task, cnvEngine, "  "));
 
 			jTabbedPaneRightLower.setEnabledAt(2, true); // sets third tab enabled
 

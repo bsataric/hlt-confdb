@@ -17,6 +17,7 @@ public class ConverterEngine
         private IOutputWriter outputWriter = null;
 	private IPathWriter pathWriter = null;
 	private ISequenceWriter sequenceWriter = null;
+	private ITaskWriter taskWriter = null;
 
 	private int maxLineLength = 250;
 	
@@ -135,10 +136,18 @@ public class ConverterEngine
 	public ISequenceWriter getSequenceWriter() {
 		return sequenceWriter;
 	}
+	
+	public ITaskWriter getTaskWriter() {
+		return taskWriter;
+	}
 
 
 	protected void setSequenceWriter(ISequenceWriter sequenceWriter) {
 		this.sequenceWriter = sequenceWriter;
+	}
+	
+	protected void setTaskWriter(ITaskWriter taskWriter) {
+		this.taskWriter = taskWriter;
 	}
 
 
