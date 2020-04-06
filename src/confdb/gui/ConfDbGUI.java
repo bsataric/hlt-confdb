@@ -2443,6 +2443,43 @@ public class ConfDbGUI {
 			return "";
 		return text;
 	}
+	
+	
+	/**
+	 * return a html string format with a list of Tasks containing the current
+	 * parameter container. Used to fill ContainedInTasks tab. (bug 88620).
+	 */
+	public String getAssignedTasks() {
+		String text = "";
+		ModuleInstance moduleInstance = null;
+		Task task = null;
+		if (currentParameterContainer instanceof ModuleInstance) {
+			moduleInstance = (ModuleInstance) currentParameterContainer;
+
+			Iterator<Task> TasIt = currentConfig.taskIterator();
+			while (TasIt.hasNext()) {
+				Task Tas = TasIt.next();
+				Reference ref = Tas.entry(moduleInstance.name());
+				if (ref != null) {
+					text += "<a href='" + Tas.name() + "'>" + Tas.name() + "</a> <br>";
+				}
+			}
+		} else if (currentParameterContainer instanceof Task) {
+			task = (Task) currentParameterContainer;
+
+			Iterator<Task> TasIt = currentConfig.taskIterator();
+			while (TasIt.hasNext()) {
+				Task Tas = TasIt.next();
+				Reference ref = Tas.entry(task.name());
+				if (ref != null) {
+					text += "<a href='" + Tas.name() + "'>" + Tas.name() + "</a> <br>";
+				}
+			}
+
+		} else
+			return "";
+		return text;
+	}
 
 	/** Prepare a summary of unassigned input tags using the original */
 	/** python code. This uses links to expand the tree and show the */
