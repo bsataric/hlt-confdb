@@ -2829,9 +2829,8 @@ public class ConfDbGUI {
 	/** display the configuration snippet for currently selected component */
 	private void displaySnippet() {
 		// by default some tabs are disabled.
-		if ((!(currentParameterContainer instanceof Path)) || 
-			(!(currentParameterContainer instanceof Sequence)) ||
-			(!(currentParameterContainer instanceof Task)))
+		if ((!(currentParameterContainer instanceof Path)) || (!(currentParameterContainer instanceof Sequence))
+				|| (!(currentParameterContainer instanceof Task)))
 			restoreRightLowerTabs();
 
 		if (currentParameterContainer == currentConfig.psets()) {
@@ -2914,7 +2913,6 @@ public class ConfDbGUI {
 			jEditorPaneSnippet.setText(cnvEngine.getSequenceWriter().toString(sequence, cnvEngine, "  "));
 
 			jTabbedPaneRightLower.setEnabledAt(2, true); // sets third tab enabled
-
 			jEditorPaneUnresolvedITags.setText(getUnresolvedInputTagsSummary());
 
 			jTabbedPaneRightLower.setEnabledAt(3, true); // sets second tab enabled
@@ -2927,14 +2925,13 @@ public class ConfDbGUI {
 			jEditorPaneSnippet.setText(cnvEngine.getTaskWriter().toString(task, cnvEngine, "  "));
 
 			jTabbedPaneRightLower.setEnabledAt(2, true); // sets third tab enabled
-
 			jEditorPaneUnresolvedITags.setText(getUnresolvedInputTagsSummary());
 
 			jTabbedPaneRightLower.setEnabledAt(3, true); // sets second tab enabled
 			jEditorContainedInPaths.setText(this.getAssignedPaths());
 
-			jTabbedPaneRightLower.setEnabledAt(4, true); // sets containedInSequence tab enabled
-			jEditorContainedInSequence.setText(this.getAssignedSequences());
+			jTabbedPaneRightLower.setEnabledAt(5, true); // sets containedInTasks tab enabled
+			jEditorContainedInTask.setText(this.getAssignedTasks());
 		} else {
 			clearSnippet();
 		}
@@ -2959,6 +2956,7 @@ public class ConfDbGUI {
 		jEditorPaneUnresolvedITags.setText("");
 		jEditorContainedInPaths.setText("");
 		jEditorContainedInSequence.setText("");
+		jEditorContainedInTask.setText("");
 
 		// Hyperlink listener to catch the path request.
 		jEditorContainedInPaths.addHyperlinkListener(new HyperlinkListener() {
@@ -2985,6 +2983,16 @@ public class ConfDbGUI {
 				if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 					String sequenceName = event.getDescription();
 					ConfigurationTreeActions.scrollToSequenceByName(sequenceName, jTreeCurrentConfig);
+				}
+			}
+		});
+		
+		// Hyperlink listener to catch the task request.
+		jEditorContainedInTask.addHyperlinkListener(new HyperlinkListener() {
+			public void hyperlinkUpdate(HyperlinkEvent event) {
+				if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+					String taskName = event.getDescription();
+					ConfigurationTreeActions.scrollToTaskByName(taskName, jTreeCurrentConfig);
 				}
 			}
 		});
@@ -4550,11 +4558,17 @@ public class ConfDbGUI {
 		jEditorContainedInSequence.setContentType("text/html");
 		TAB_containedInSequence.setViewportView(jEditorContainedInSequence);
 		jTabbedPaneRightLower.addTab("Contained in Sequences", TAB_containedInSequence);
+		
+		jEditorContainedInTask.setEditable(false);
+		jEditorContainedInTask.setContentType("text/html");
+		TAB_containedInTask.setViewportView(jEditorContainedInTask);
+		jTabbedPaneRightLower.addTab("Contained in Tasks", TAB_containedInTask);
 
 		jTabbedPaneRightLower.setEnabledAt(1, false); // sets the second tab as Disabled
 		jTabbedPaneRightLower.setEnabledAt(2, false); // sets the third tab as Disabled
 		jTabbedPaneRightLower.setEnabledAt(3, false); // sets containedInPath tab as Disabled
 		jTabbedPaneRightLower.setEnabledAt(4, false); // sets containedInSequence tab as Disabled
+		jTabbedPaneRightLower.setEnabledAt(5, false); // sets containedInTask tab as Disabled
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(jPanelRightLower);
 		jPanelRightLower.setLayout(layout);
