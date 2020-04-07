@@ -2992,7 +2992,7 @@ public class ConfDbGUI {
 			public void hyperlinkUpdate(HyperlinkEvent event) {
 				if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 					String taskName = event.getDescription();
-					ConfigurationTreeActions.scrollToTaskByName(taskName, jTreeCurrentConfig);
+					//ConfigurationTreeActions.scrollToTaskByName(taskName, jTreeCurrentConfig);
 				}
 			}
 		});

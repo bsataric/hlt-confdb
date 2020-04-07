@@ -477,6 +477,80 @@ public class ConfigurationTreeActions {
 		model.updateLevel1Nodes();
 	}
 
+	/** remove all unreferenced tasks */
+	public static void removeUnreferencedTasks(JTree tree) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+		Object parent = model.tasksNode();
+
+		ArrayList<Task> toBeRemoved = new ArrayList<Task>();
+
+		Iterator<Task> itTas = config.taskIterator();
+		while (itTas.hasNext()) {
+			Task task = itTas.next();
+			if (task.parentPaths().length == 0)
+				toBeRemoved.add(task);
+		}
+
+		Iterator<Task> itRmv = toBeRemoved.iterator();
+		while (itRmv.hasNext()) {
+			Task task = itRmv.next();
+			int index = config.indexOfTask(task);
+			config.removeTask(task);
+			model.nodeRemoved(parent, index, task);
+		}
+		model.nodeStructureChanged(model.modulesNode());
+		model.updateLevel1Nodes();
+	}
+
+	/** resolve unnecessary tasks (those referenced only once) */
+	public static void resolveUnnecessaryTasks(JTree tree) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+
+		ArrayList<Task> tasks = new ArrayList<Task>();
+		Iterator<Task> itT = config.taskIterator();
+		while (itT.hasNext()) {
+			Task task = itT.next();
+			if (task.referenceCount() == 1)
+				tasks.add(task);
+		}
+
+		itT = tasks.iterator();
+		while (itT.hasNext()) {
+			Task task = itT.next();
+			Reference reference = task.reference(0);
+			ReferenceContainer container = reference.container();
+			int index = container.indexOfEntry(reference);
+
+			Operator[] operators = new Operator[task.entryCount()];
+			Referencable[] instances = new Referencable[task.entryCount()];
+			for (int i = 0; i < task.entryCount(); i++) {
+				operators[i] = task.entry(i).getOperator();
+				instances[i] = task.entry(i).parent();
+			}
+			config.removeTask(task);
+			// this is reconnection of task parent container (container), with task child
+			// nodes (instances)
+			for (int i = 0; i < instances.length; i++) {
+				if (instances[i] instanceof ModuleInstance) {
+					ModuleInstance module = (ModuleInstance) instances[i];
+					config.insertModule(config.moduleCount(), module);
+					config.insertModuleReference(container, index + i, module).setOperator(operators[i]);
+				} else if (instances[i] instanceof Task) {
+					Task tas = (Task) instances[i];
+					config.insertTaskReference(container, index + i, tas).setOperator(operators[i]);
+				} else if (instances[i] instanceof Path) {
+					Path path = (Path) instances[i];
+					config.insertPathReference(container, index + i, path).setOperator(operators[i]);
+				}
+			}
+		}
+
+		model.nodeStructureChanged(model.getRoot());
+		model.updateLevel1Nodes();
+	}
+
 	/** set a path as endpath */
 	public static void setPathAsEndpath(JTree tree, boolean isEndPath) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
@@ -592,6 +666,66 @@ public class ConfigurationTreeActions {
 		return newName;
 	}
 
+	/** insert a new task */
+	public static boolean insertTask(JTree tree) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+		TreePath treePath = tree.getSelectionPath();
+
+		int index = (treePath.getPathCount() == 2) ? 0
+				: model.getIndexOfChild(treePath.getParentPath().getLastPathComponent(),
+						treePath.getLastPathComponent()) + 1;
+
+		Task task = config.insertTask(index, "<ENTER TASK NAME>");
+
+		model.nodeInserted(model.tasksNode(), index);
+		model.updateLevel1Nodes();
+
+		TreePath parentPath = (index == 0) ? treePath : treePath.getParentPath();
+		TreePath newTreePath = parentPath.pathByAddingChild(task);
+
+		tree.setSelectionPath(newTreePath);
+		editNodeName(tree);
+
+		return true;
+	}
+
+	/**
+	 * insertTaskNamed
+	 * ----------------------------------------------------------------- Insert a
+	 * new task using the given name passed by parameter It checks the task name
+	 * existence and tries different suffixes using underscore + a number from 0 to
+	 * 9.
+	 */
+	private static String insertTaskNamed(JTree tree, String name) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+		TreePath treePath = tree.getSelectionPath();
+
+		int index = (treePath.getPathCount() == 2) ? 0
+				: model.getIndexOfChild(treePath.getParentPath().getLastPathComponent(),
+						treePath.getLastPathComponent()) + 1;
+		// To make sure that task name doesn't exist:
+		String newName = name;
+		if (config.task(name) != null) {
+			for (int j = 0; j < 10; j++) {
+				newName = name + "_" + j;
+				if (config.task(newName) == null) {
+					j = 10;
+				}
+			}
+		}
+
+		Task task = config.insertTask(index, newName);
+
+		model.nodeInserted(model.tasksNode(), index);
+		model.updateLevel1Nodes();
+		TreePath parentPath = (index == 0) ? treePath : treePath.getParentPath();
+		TreePath newTreePath = parentPath.pathByAddingChild(task);
+		tree.setSelectionPath(newTreePath);
+		return newName;
+	}
+
 	/**
 	 * insertPathNamed
 	 * ----------------------------------------------------------------- Insert a
@@ -607,7 +741,7 @@ public class ConfigurationTreeActions {
 		int index = (treePath.getPathCount() == 2) ? 0
 				: model.getIndexOfChild(treePath.getParentPath().getLastPathComponent(),
 						treePath.getLastPathComponent()) + 1;
-		// To make sure that sequence name doesn't exist:
+		// To make sure that path name doesn't exist:
 		String newName = name;
 		if (config.path(name) != null) {
 			for (int j = 0; j < 10; j++) {
@@ -676,9 +810,20 @@ public class ConfigurationTreeActions {
 																						// targetContainer
 				Object lc = tree.getSelectionPath().getLastPathComponent(); // get from the new selectionPath set in
 																			// insertSequenceNamed.
-				ConfigurationTreeActions.DeepCloneSequence(tree, source, (ReferenceContainer) lc);
+				ConfigurationTreeActions.DeepCloneSequence(tree, source, (ReferenceContainer) lc); // DEEP RECURSION
 				Sequence targetSequence = config.sequence(newName);
 				config.insertSequenceReference(targetContainer, i, targetSequence).setOperator(sourceRef.getOperator());
+				model.nodeInserted(targetContainer, i);
+			} else if (entry instanceof TaskReference) {
+				TaskReference sourceRef = (TaskReference) entry;
+				Task source = (Task) sourceRef.parent();
+				newName = ConfigurationTreeActions.insertTaskNamed(tree, newName); // It has created the
+																					// targetContainer
+				Object lc = tree.getSelectionPath().getLastPathComponent(); // get from the new selectionPath set in
+																			// insertTaskNamed.
+				ConfigurationTreeActions.DeepCloneTask(tree, source, (ReferenceContainer) lc); // DEEP RECURSION
+				Task targetTask = config.task(newName);
+				config.insertTaskReference(targetContainer, i, targetTask).setOperator(sourceRef.getOperator());
 				model.nodeInserted(targetContainer, i);
 			} else if (entry instanceof ModuleReference) {
 				ModuleReference sourceRef = (ModuleReference) entry;
@@ -687,6 +832,70 @@ public class ConfigurationTreeActions {
 				System.err
 						.println("[confdb.gui.ConfigurationTreeActions.DeepCloneSequence] ERROR: reference instanceof "
 								+ entry.getClass());
+				return false;
+			}
+			tree.setSelectionPath(treePath); // set the selection path again to this level.
+		}
+
+		return true;
+	}
+
+	/**
+	 * DeepCloneTask
+	 * ----------------------------------------------------------------- Clone a
+	 * task from source reference container to target reference container. If the
+	 * target reference container is null, it creates the root task using the source
+	 * task name + suffix. This method use recursion to clone the source tree based
+	 * in the selection path. NOTE: It automatically go across the entries setting
+	 * the selection path in different levels. Selection Path is restored to current
+	 * level when recursion ends.
+	 */
+	public static boolean DeepCloneTask(JTree tree, ReferenceContainer sourceContainer,
+			ReferenceContainer targetContainer) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+		TreePath treePath = tree.getSelectionPath();
+		String targetName = sourceContainer.name() + "_clone";
+
+		if (targetContainer == null) {
+			targetName = ConfigurationTreeActions.insertTaskNamed(tree, targetName); // It has created the
+																						// targetContainer
+			targetContainer = config.task(targetName);
+			if (targetContainer == null) {
+				System.err.println("[confdb.gui.ConfigurationTreeActions.DeepCloneTask] ERROR: targetTask == NULL");
+				return false;
+			}
+		} else
+			targetName = targetContainer.name();
+
+		treePath = tree.getSelectionPath(); // need to get selection path again. (after insertTaskNamed).
+
+		if (targetContainer.entryCount() != 0) { // BSATARIC COMMENT: When this can happen?
+			System.err.println("[confdb.gui.ConfigurationTreeActions.DeepCloneTask] ERROR: targetTask.entryCount != 0 "
+					+ targetContainer.name());
+		}
+
+		String newName;
+		for (int i = 0; i < sourceContainer.entryCount(); i++) {
+			Reference entry = sourceContainer.entry(i);
+			newName = entry.name() + "_clone";
+			if (entry instanceof TaskReference) {
+				TaskReference sourceRef = (TaskReference) entry;
+				Task source = (Task) sourceRef.parent();
+				newName = ConfigurationTreeActions.insertTaskNamed(tree, newName); // It has created the
+																					// targetContainer
+				Object lc = tree.getSelectionPath().getLastPathComponent(); // get from the new selectionPath set in
+																			// insertTaskNamed.
+				ConfigurationTreeActions.DeepCloneTask(tree, source, (ReferenceContainer) lc); // DEEP RECURSION
+				Task targetTask = config.task(newName);
+				config.insertTaskReference(targetContainer, i, targetTask).setOperator(sourceRef.getOperator());
+				model.nodeInserted(targetContainer, i);
+			} else if (entry instanceof ModuleReference) {
+				ModuleReference sourceRef = (ModuleReference) entry;
+				ConfigurationTreeActions.CloneModule(tree, sourceRef, newName);
+			} else {
+				System.err.println("[confdb.gui.ConfigurationTreeActions.DeepCloneTask] ERROR: reference instanceof "
+						+ entry.getClass());
 				return false;
 			}
 			tree.setSelectionPath(treePath); // set the selection path again to this level.
@@ -757,6 +966,23 @@ public class ConfigurationTreeActions {
 				// sets the selection path back to pathNode:
 				tree.setSelectionPath(treePath);
 
+			} else if (entry instanceof TaskReference) {
+				// Sets selection path to taskNode:
+				tree.setSelectionPath(new TreePath(model.getPathToRoot(model.tasksNode())));
+
+				TaskReference sourceRef = (TaskReference) entry;
+				Task source = (Task) sourceRef.parent();
+				ConfigurationTreeActions.DeepCloneTask(tree, source, null);
+
+				// Getting the cloned task using the selection path:
+				Task clonedTask = (Task) tree.getLastSelectedPathComponent();
+
+				config.insertTaskReference(targetContainer, i, clonedTask).setOperator(sourceRef.getOperator());
+				model.nodeInserted(targetContainer, i);
+
+				// sets the selection path back to pathNode:
+				tree.setSelectionPath(treePath);
+
 			} else if (entry instanceof ModuleReference) {
 				String newName = entry.name() + "_clone";
 				ModuleReference sourceRef = (ModuleReference) entry;
@@ -812,6 +1038,10 @@ public class ConfigurationTreeActions {
 			targetName = ConfigurationTreeActions.insertSequenceNamed(tree, targetName); // It has created the
 																							// targetContainer
 			targetContainer = config.sequence(targetName);
+		} else if (sourceContainer instanceof Task) {
+			targetName = ConfigurationTreeActions.insertTaskNamed(tree, targetName); // It has created the
+																						// targetContainer
+			targetContainer = config.task(targetName);
 		} else {
 			System.err.println(
 					"[confdb.gui.ConfigurationTreeActions.CloneReferenceContainer] ERROR: sourceContainer NOT instanceof Path");
@@ -840,6 +1070,11 @@ public class ConfigurationTreeActions {
 				SequenceReference sourceRef = (SequenceReference) entry;
 				Sequence source = (Sequence) sourceRef.parent();
 				config.insertSequenceReference(targetContainer, i, source).setOperator(sourceRef.getOperator());
+				model.nodeInserted(targetContainer, i);
+			} else if (entry instanceof TaskReference) {
+				TaskReference sourceRef = (TaskReference) entry;
+				Task source = (Task) sourceRef.parent(); //BSATARIC COMMENT: only reconnect references (no copies)
+				config.insertTaskReference(targetContainer, i, source).setOperator(sourceRef.getOperator());
 				model.nodeInserted(targetContainer, i);
 			} else if (entry instanceof ModuleReference) {
 				ModuleInstance module = config.module(entry.name());
