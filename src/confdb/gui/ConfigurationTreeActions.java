@@ -1272,7 +1272,7 @@ public class ConfigurationTreeActions {
 
 		Diff diff = new Diff(external.config(), config);
 		String search = type + ":" + container.name(); 
-		diff.compare(search);  //TODO: continue from here
+		diff.compare(search);  
 		if (!diff.isIdentical()) {
 			DiffDialog dlg = new DiffDialog(diff);
 			dlg.pack();

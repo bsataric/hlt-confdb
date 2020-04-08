@@ -9,7 +9,6 @@ import confdb.converter.ConverterException;
 import confdb.data.*;
 import confdb.db.*;
 
-//TODO: DIFF TASKS
 /**
  * Diff ----
  * 
