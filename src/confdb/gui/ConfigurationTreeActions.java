@@ -910,6 +910,8 @@ public class ConfigurationTreeActions {
 	 * DeepCloneContainer clones a Path container. Generates a full copy of the
 	 * selected path also creating clones of modules and nested sequences. This
 	 * method uses recursion to also take into account the sub-paths.
+	 * 
+	 * @author bsataric (TASKS)
 	 */
 	public static boolean DeepCloneContainer(JTree tree, ReferenceContainer sourceContainer,
 			ReferenceContainer targetContainer) {
@@ -1018,6 +1020,8 @@ public class ConfigurationTreeActions {
 	 * perform clones of sequences or paths. This is also called "Simple Clone" or
 	 * "shallow clone". It will only create a new top level sequence/path containing
 	 * references to original modules and sequences of the source one.
+	 * 
+	 * @author bsataric (TASKS)
 	 */
 	public static boolean CloneReferenceContainer(JTree tree, ReferenceContainer sourceContainer) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
@@ -1114,7 +1118,7 @@ public class ConfigurationTreeActions {
 		return true;
 	}
 
-	/** move an existing task within the list of tasks */
+	/** move an existing task within the list of tasks @author bsataric */
 	public static boolean moveTask(JTree tree, Task sourceTask) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
 		Configuration config = (Configuration) model.getRoot();
@@ -1136,6 +1140,8 @@ public class ConfigurationTreeActions {
 	/**
 	 * Import all references from a container (paths, sequences or tasks). The
 	 * import operation is performed by a worker and showing a progress bar.
+	 * 
+	 * @author bsataric (TASKS)
 	 */
 	public static boolean importAllReferenceContainers(JTree tree, JTree sourceTree, Object external) {
 		ConfigurationTreeModel sm = (ConfigurationTreeModel) sourceTree.getModel();
@@ -1181,7 +1187,7 @@ public class ConfigurationTreeActions {
 		return true;
 	}
 
-	/** import Path / Sequence / Task */
+	/** import Path / Sequence / Task @author bsataric (TASKS) */
 	public static boolean importReferenceContainer(JTree tree, ReferenceContainer external) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
 		Configuration config = (Configuration) model.getRoot();
@@ -1271,8 +1277,8 @@ public class ConfigurationTreeActions {
 		model.updateLevel1Nodes();
 
 		Diff diff = new Diff(external.config(), config);
-		String search = type + ":" + container.name(); 
-		diff.compare(search);  
+		String search = type + ":" + container.name();
+		diff.compare(search);
 		if (!diff.isIdentical()) {
 			DiffDialog dlg = new DiffDialog(diff);
 			dlg.pack();
@@ -1290,11 +1296,13 @@ public class ConfigurationTreeActions {
 	}
 
 	/**
-	 * import Path / Sequence DeepImportReferenceContainer Import Paths and
-	 * Sequences container giving as result identical containers in source and
-	 * target configuration. NOTE: The implementation of this method has change to
-	 * support filtering. It uses the source configuration instead of the source
+	 * import Path / Sequence / Task DeepImportReferenceContainer Import Paths,
+	 * Sequences and Tasks container giving as result identical containers in source
+	 * and target configuration. NOTE: The implementation of this method has change
+	 * to support filtering. It uses the source configuration instead of the source
 	 * JTree.
+	 * 
+	 * @author bsataric (TASKS)
 	 */
 	public static boolean DeepImportReferenceContainer(JTree tree, Configuration sourceConfig,
 			ReferenceContainer external) {
@@ -1302,7 +1310,14 @@ public class ConfigurationTreeActions {
 		Configuration config = (Configuration) model.getRoot();
 		TreePath treePath = tree.getSelectionPath();
 
-		int count = (external instanceof Path) ? config.pathCount() : config.sequenceCount();
+		int count = 0;
+		if (external instanceof Path)
+			count = config.pathCount();
+		else if (external instanceof Sequence)
+			count = config.sequenceCount();
+		else if (external instanceof Task)
+			count = config.taskCount();
+
 		int index = (treePath == null) ? count
 				: (treePath.getPathCount() == 2) ? 0
 						: model.getIndexOfChild(treePath.getParentPath().getLastPathComponent(),
@@ -1314,13 +1329,16 @@ public class ConfigurationTreeActions {
 		Diff diff = null;
 
 		// prepare to make a diff.
-		Configuration importTestConfig = getConfigurationCopy(config);
+		Configuration importTestConfig = getConfigurationCopy(config); // BSATARIC: make a copy of original config
 		if (external instanceof Path) {
 			container = importTestConfig.path(external.name());
 			type = "path";
 		} else if (external instanceof Sequence) {
 			container = importTestConfig.sequence(external.name());
 			type = "sequence";
+		} else if (external instanceof Task) {
+			container = importTestConfig.task(external.name());
+			type = "task";
 		}
 		if (container == null) { // if root container doesn't exist:
 			if (!importTestConfig.hasUniqueQualifier(external))
@@ -1328,8 +1346,10 @@ public class ConfigurationTreeActions {
 			if (type.equals("path")) {
 				container = importTestConfig.insertPath(index, external.name());
 				((Path) container).setFields((Path) external);
-			} else {
+			} else if (type.equals("sequence")) {
 				container = importTestConfig.insertSequence(index, external.name());
+			} else if (type.equals("task")) {
+				container = importTestConfig.insertTask(index, external.name());
 			}
 		}
 
@@ -1345,6 +1365,7 @@ public class ConfigurationTreeActions {
 		// configuration.
 		diff.compareModules();
 		diff.comparePathsIgnoreStreams(); // Ignore Streams.
+		diff.compareTasksIgnoreStreams(); // Ignore Streams.
 		diff.compareSequencesIgnoreStreams(); // Ignore Streams.
 
 		String message = "You are about to add, delete or order multiple items! \n";
@@ -1373,16 +1394,23 @@ public class ConfigurationTreeActions {
 			container = config.sequence(external.name());
 			parent = model.sequencesNode();
 			type = "sequence";
+		} else if (external instanceof Task) {
+			container = config.task(external.name());
+			parent = model.tasksNode();
+			type = "task";
 		}
 
-		if (container == null) { // if root container doesn't exist:
+		if (container == null) { // if root container doesn't exist (BSATARIC: external is in copy but not in
+									// original):
 			if (!config.hasUniqueQualifier(external))
 				return false;
 			if (type.equals("path")) {
 				container = config.insertPath(index, external.name());
 				((Path) container).setFields((Path) external);
-			} else {
+			} else if (type.equals("sequence")) {
 				container = config.insertSequence(index, external.name());
+			} else if (type.equals("task")) {
+				container = config.insertTask(index, external.name());
 			}
 
 			model.nodeInserted(parent, index); // Force update bug76145
@@ -1423,11 +1451,13 @@ public class ConfigurationTreeActions {
 	 * DeepImportContainerEntriesSimulation.
 	 * ------------------------------------------------------------------------
 	 * NOTE: DO NOT USE this method to create functional copies of a configuration.
+	 * 
+	 * @author bsataric (TASKS)
 	 */
 	private static Configuration getConfigurationCopy(Configuration sourceConf) {
 		Configuration configurationCopy = new Configuration();
 
-		// Configuration needs to be initialised with a new software release.
+		// Configuration needs to be initialized with a new software release.
 		// A new software release allows to insert modules from scratch.
 		configurationCopy.initialize(new ConfigInfo("", null, sourceConf.releaseTag()),
 				new SoftwareRelease(sourceConf.release()));
@@ -1533,6 +1563,19 @@ public class ConfigurationTreeActions {
 			index++;
 		}
 
+		// COPY Task:
+		Iterator<Task> Tasit = sourceConf.taskIterator();
+		index = 0;
+		while (Tasit.hasNext()) {
+			Task task = Tasit.next();
+			Task newTask = configurationCopy.task(task.name());
+			if (newTask == null) {
+				newTask = configurationCopy.insertTask(index, task.name());
+				importContainerEntries(configurationCopy, null, task, newTask);
+			}
+			index++;
+		}
+
 		// COPY PATHS:
 		Iterator<Path> pathit = sourceConf.pathIterator();
 		index = 0;
@@ -1554,14 +1597,22 @@ public class ConfigurationTreeActions {
 	}
 
 	/**
-	 * import Path / Sequence Perform updates and insertions of new references into
-	 * a target configuration. NOTE: Nodes are not updated in the Tree model.
+	 * import Path / Sequence / Task. Perform updates and insertions of new
+	 * references into a target configuration. NOTE: Nodes are not updated in the
+	 * Tree model.
+	 * @author bsataric (TASKS)
 	 */
 	public static boolean importReferenceContainersNoModel(JTree tree, ReferenceContainer external, boolean update) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
 		Configuration config = (Configuration) model.getRoot();
 
-		int index = (external instanceof Path) ? config.pathCount() : config.sequenceCount();
+		int index = 0;
+		if (external instanceof Path)
+			index = config.pathCount();
+		else if (external instanceof Sequence)
+			index = config.sequenceCount();
+		else if (external instanceof Sequence)
+			index = config.taskCount();
 
 		ReferenceContainer container = null;
 		String type = null;
@@ -1572,13 +1623,21 @@ public class ConfigurationTreeActions {
 		} else if (external instanceof Sequence) {
 			container = config.sequence(external.name());
 			type = "sequence";
+		} else if (external instanceof Task) {
+			container = config.task(external.name());
+			type = "task";
 		}
 
-		if (container != null) {
-			index = (type.equals("path")) ? config.indexOfPath((Path) container)
-					: config.indexOfSequence((Sequence) container);
+		if (container != null) { // BSATARIC: if container already exists in config
+			if (type.equals("path"))
+				index = config.indexOfPath((Path) container);
+			else if (type.equals("sequence"))
+				index = config.indexOfSequence((Sequence) container);
+			else if (type.equals("task"))
+				index = config.indexOfTask((Task) container);
+
 			if (update) {
-				while (container.entryCount() > 0) {
+				while (container.entryCount() > 0) { //BSATARIC: remove all container entries?
 					Reference entry = (Reference) container.entry(0);
 					removeReference(config, null, entry);
 				}
@@ -1592,8 +1651,10 @@ public class ConfigurationTreeActions {
 			if (type.equals("path")) {
 				container = config.insertPath(index, external.name());
 				((Path) container).setFields((Path) external);
-			} else {
+			} else if (type.equals("sequence")) {
 				container = config.insertSequence(index, external.name());
+			} else if (type.equals("task")) {
+				container = config.insertTask(index, external.name());
 			}
 		}
 
@@ -1610,7 +1671,7 @@ public class ConfigurationTreeActions {
 		return true;
 	}
 
-	/** insert entries of an external reference container into the local copy */
+	/** insert entries of an external reference container into the local copy @author bsataric (TASKS) */
 	private static boolean importContainerEntries(Configuration config, ConfigurationTreeModel treeModel,
 			ReferenceContainer sourceContainer, ReferenceContainer targetContainer) {
 		boolean updateModel = (treeModel != null);
@@ -1711,17 +1772,18 @@ public class ConfigurationTreeActions {
 				TaskReference sourceRef = (TaskReference) entry;
 				Task source = (Task) sourceRef.parent();
 				Task target = config.task(sourceRef.name());
-				if (target != null) { //BSATARIC COMMENT: this means given task already exists by that name in config
+				if (target != null) { // BSATARIC COMMENT: this means given task already exists by that name in config
 					config.insertTaskReference(targetContainer, i, target).setOperator(sourceRef.getOperator());
-					result = false;	//BSATARIC COMMENT: so only make a reference to it
-				} else {
+					result = false; // BSATARIC COMMENT: so only make a reference to it
+				} else { // BSATARIC: otherwise insert the whole new task with a reference
 					target = config.insertTask(config.taskCount(), sourceRef.name());
 					if (updateModel)
 						treeModel.nodeInserted(treeModel.tasksNode(), config.taskCount() - 1);
 					config.insertTaskReference(targetContainer, i, target).setOperator(sourceRef.getOperator());
-					boolean tmp = importContainerEntries(config, treeModel, source, target); //BSATARIC: recursion again
+					boolean tmp = importContainerEntries(config, treeModel, source, target); // BSATARIC: recursion
+																								// again
 					if (tmp)
-						target.setDatabaseId(source.databaseId()); //BSATARIC: same DB ID as in source on target
+						target.setDatabaseId(source.databaseId()); // BSATARIC: same DB ID as in source on target
 					if (result)
 						result = tmp;
 				}
@@ -1742,7 +1804,9 @@ public class ConfigurationTreeActions {
 	 * structure is changed then DeepImportContainerEntriesSimulation must also be
 	 * changed to ensure the diff results matches the DeepImport results.
 	 * 
-	 * @author jimeneze
+	 * @author jimeneze @author bsataric (TASKS)
+	 * BSATARIC: difference then importContainerEntries is in fact that it checks order of imported entries (I think)
+	 * 			and that it removes the difference in entries in the end
 	 */
 	private static boolean DeepImportContainerEntries(Configuration config, Configuration sourceConfig,
 			JTree targetTree, ReferenceContainer sourceContainer, ReferenceContainer targetContainer) {
@@ -1977,7 +2041,8 @@ public class ConfigurationTreeActions {
 
 				SequenceReference sourceRef = (SequenceReference) entry;
 				Sequence source = (Sequence) sourceRef.parent();
-				Sequence target = config.sequence(sourceRef.name());
+				Sequence target = config.sequence(sourceRef.name()); // BSATARIC: check if sequence exists in copy
+																		// config
 
 				if (target != null) { // if sequence already exist then just insert the reference.
 
@@ -2001,7 +2066,8 @@ public class ConfigurationTreeActions {
 							// Check if SequenceReference are in the same order:
 							if (i != j) {
 								// So remove reference, and insert it later.
-								if (updateModel) {
+								if (updateModel) { // BSATARIC: if targetTree parameter is not null otherwise work with
+													// config
 									removeReference(null, targetTree, subentry); // this might delete the ITEM (index of
 																					// -1 when searching).
 									treeModel.nodeStructureChanged(targetContainer);
@@ -2035,7 +2101,7 @@ public class ConfigurationTreeActions {
 						treeModel.nodeInserted(targetContainer, targetContainer.entryCount() - 1);
 				}
 
-				// INSERT REFERENCES: for new sequences, and out of order references.
+				// INSERT REFERENCES: for new sequences, and out of order references (check up)
 				boolean existance = false;
 				for (int j = 0; j < targetContainer.entryCount(); j++) {
 					Reference subentry = (Reference) targetContainer.entry(j);
@@ -2047,6 +2113,87 @@ public class ConfigurationTreeActions {
 				}
 				if (!existance) {
 					config.insertSequenceReference(targetContainer, i, target).setOperator(sourceRef.getOperator());
+					if (updateModel)
+						treeModel.nodeInserted(targetContainer, i);
+				}
+			} else if (entry instanceof TaskReference) { // TASK REFERENCES
+
+				TaskReference sourceRef = (TaskReference) entry;
+				Task source = (Task) sourceRef.parent();
+				Task target = config.task(sourceRef.name()); // BSATARIC: check if task exists in copy config
+
+				if (target != null) { // if task already exist then just insert the reference.
+
+					Diff diff = new Diff(sourceConfig, config);
+					Comparison c = diff.compareContainers(source, target);
+
+					if (!c.isIdentical()) {
+						DeepImportContainerEntries(config, sourceConfig, targetTree, source, target);
+						if (updateModel) {
+							// treeModel.nodeStructureChanged(treeModel.sequencesNode()); //maybe???
+							treeModel.nodeStructureChanged(treeModel.tasksNode());
+							treeModel.nodeStructureChanged(treeModel.pathsNode());
+						}
+					} // if identical, just check the order.
+
+					// Now references must be checked:
+					for (int j = 0; j < targetContainer.entryCount(); j++) {
+						Reference subentry = (Reference) targetContainer.entry(j);
+						if ((subentry instanceof TaskReference) && (entry instanceof TaskReference)
+								&& (subentry.name().equals(entry.name()))) {
+
+							// Check if TaskReference are in the same order (BSATARIC: is order important
+							// for tasks?):
+							if (i != j) {
+								// So remove reference, and insert it later.
+								if (updateModel) { // BSATARIC: if targetTree parameter is not null otherwise work with
+													// config
+									removeReference(null, targetTree, subentry); // this might delete the ITEM (index of
+																					// -1 when searching).
+									treeModel.nodeStructureChanged(targetContainer);
+								} else {
+									removeReference(config, null, subentry); // this might delete the ITEM (index of -1
+																				// when searching).
+								}
+							} else {
+								subentry.setOperator(sourceRef.getOperator());
+							}
+						}
+					}
+					result = false;
+				} else { // Insert the task and the reference.
+
+					target = config.insertTask(config.taskCount(), sourceRef.name());
+					config.insertTaskReference(targetContainer, i, target).setOperator(sourceRef.getOperator());
+
+					if (updateModel)
+						treeModel.nodeInserted(treeModel.tasksNode(), config.taskCount() - 1);
+
+					// config.insertTaskReference(targetContainer,targetContainer.entryCount(),target);
+
+					// recursively entries insertion!
+					boolean tmp = DeepImportContainerEntries(config, sourceConfig, targetTree, source, target);
+					if (tmp)
+						target.setDatabaseId(source.databaseId());
+					if (result)
+						result = tmp;
+					if (updateModel)
+						treeModel.nodeInserted(targetContainer, targetContainer.entryCount() - 1);
+				}
+
+				// INSERT REFERENCES: for new tasks, and out of order tasks (BSATARIC: is this
+				// necessary?)
+				boolean existance = false;
+				for (int j = 0; j < targetContainer.entryCount(); j++) {
+					Reference subentry = (Reference) targetContainer.entry(j);
+					if ((subentry instanceof TaskReference) && (entry instanceof TaskReference)
+							&& (subentry.name().equals(entry.name()))) {
+						subentry.setOperator(sourceRef.getOperator());
+						existance = true;
+					}
+				}
+				if (!existance) {
+					config.insertTaskReference(targetContainer, i, target).setOperator(sourceRef.getOperator());
 					if (updateModel)
 						treeModel.nodeInserted(targetContainer, i);
 				}
@@ -2063,6 +2210,7 @@ public class ConfigurationTreeActions {
 				Reference sourceSubEntry = (Reference) sourceContainer.entry(j);
 
 				if (((((targetSubEntry instanceof SequenceReference) && (sourceSubEntry instanceof SequenceReference))
+						|| ((targetSubEntry instanceof TaskReference) && (sourceSubEntry instanceof TaskReference))
 						|| ((targetSubEntry instanceof ModuleReference) && (sourceSubEntry instanceof ModuleReference))
 						|| ((targetSubEntry instanceof PathReference) && (sourceSubEntry instanceof PathReference)))
 						&& (targetSubEntry.name().equals(sourceSubEntry.name())))) {
@@ -2084,7 +2232,7 @@ public class ConfigurationTreeActions {
 		return result;
 	}
 
-	/** insert reference into currently selected reference container */
+	/** insert reference into currently selected reference container @author bsataric (TASKS)*/
 	public static boolean insertReference(JTree tree, String type, String name) {
 
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
@@ -2092,7 +2240,7 @@ public class ConfigurationTreeActions {
 		TreePath treePath = tree.getSelectionPath();
 		int depth = treePath.getPathCount();
 
-		TreePath parentTreePath = (depth == 3) ? treePath : treePath.getParentPath();
+		TreePath parentTreePath = (depth == 3) ? treePath : treePath.getParentPath(); //BSATARIC: why 3?
 		ReferenceContainer parent = (ReferenceContainer) parentTreePath.getLastPathComponent();
 		int index = (depth == 3) ? 0 : parent.indexOfEntry((Reference) treePath.getLastPathComponent()) + 1;
 
@@ -2109,6 +2257,11 @@ public class ConfigurationTreeActions {
 			if (referencedSequence == null)
 				return false;
 			reference = config.insertSequenceReference(parent, index, referencedSequence);
+		} else if (type.equalsIgnoreCase("Task")) {
+			Task referencedTask = config.task(name);
+			if (referencedTask == null)
+				return false;	//BSATARIC: parent is selected container and we make a reference on it to named task
+			reference = config.insertTaskReference(parent, index, referencedTask);
 		} else if (type.equalsIgnoreCase("OutputModule")) {
 			OutputModule referencedOutput = config.output(name);
 			if (referencedOutput == null)
@@ -2215,7 +2368,7 @@ public class ConfigurationTreeActions {
 		return true;
 	}
 
-	/** remove a reference container */
+	/** remove a reference container @author bsataric (TASKS) */
 	public static boolean removeReferenceContainer(JTree tree) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
 		Configuration config = (Configuration) model.getRoot();
@@ -2278,6 +2431,10 @@ public class ConfigurationTreeActions {
 			index = config.indexOfSequence((Sequence) container);
 			parent = model.sequencesNode();
 			config.removeSequence((Sequence) container);
+		} else if (container instanceof Task) {
+			index = config.indexOfTask((Task) container);
+			parent = model.tasksNode();
+			config.removeTask((Task) container);
 		}
 
 		model.nodeRemoved(parent, index, container);
@@ -2431,6 +2588,19 @@ public class ConfigurationTreeActions {
 		tree.expandPath(Path);
 		tree.scrollPathToVisible(Path);
 	}
+	
+	/**
+	 * scroll to the Path given by the task name and expand the tree. @author bsataric
+	 */
+	public static void scrollToTaskByName(String taskName, JTree tree) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+
+		TreePath Path = new TreePath(model.getPathToRoot(config.task(taskName)));
+		tree.setSelectionPath(Path);
+		tree.expandPath(Path);
+		tree.scrollPathToVisible(Path);
+	}
 
 	/**
 	 * scroll to the module given by the module name and expand the tree.
@@ -2445,7 +2615,7 @@ public class ConfigurationTreeActions {
 		tree.scrollPathToVisible(Path);
 	}
 
-	/** import a single module into path or sequence */
+	/** import a single module into path, sequence or task */
 	public static boolean importModule(JTree tree, ModuleInstance external) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
 		Configuration config = (Configuration) model.getRoot();
@@ -2735,7 +2905,7 @@ public class ConfigurationTreeActions {
 	}
 
 	/**
-	 * replace a container (path or sequence) with the internal one
+	 * replace a container (path, sequence or task) with the internal one @author bsataric (TASKS)
 	 */
 	public static boolean replaceContainerInternally(JTree tree, String type, ReferenceContainer oldContainer,
 			String newObject) {
@@ -2792,6 +2962,51 @@ public class ConfigurationTreeActions {
 			model.updateLevel1Nodes();
 			tree.expandPath(new TreePath(model.getPathToRoot(newSequence)));
 			config.removeSequence(oldSequence);
+
+		} else if (type.equals("Task")) {
+
+			Task oldTask = (Task) oldContainer;
+			if (oldTask == null)
+				return false;
+			if (config.task(oldTask.name()) == null)
+				return false;
+			Task newTask = config.task(newObject); //BSATARIC: newTask must exist already in config. It will replace old
+			if (newTask == null)
+				return false;
+
+			int index = config.indexOfTask(oldTask);
+			int refCount = oldTask.referenceCount();
+			ReferenceContainer[] parents = new ReferenceContainer[refCount];
+			int[] indices = new int[refCount];
+			Operator[] operators = new Operator[refCount];
+			int iRefCount = 0;
+			while (oldTask.referenceCount() > 0) {
+				Reference reference = oldTask.reference(0); //BSATARIC: fill old task parents (references)
+				parents[iRefCount] = reference.container();
+				indices[iRefCount] = parents[iRefCount].indexOfEntry(reference);
+				operators[iRefCount] = reference.getOperator();
+				reference.remove();  //BSATARIC: basically removes all references to parent objects from old task (double bind)
+				model.nodeRemoved(parents[iRefCount], indices[iRefCount], reference);
+				iRefCount++;
+			}
+			model.nodeRemoved(model.tasksNode(), index, oldTask);
+			for (int i = 0; i < refCount; i++) {
+				Reference check = parents[i].entry(newTask.name());
+				int iref = parents[i].indexOfEntry(check);
+				if (iref < 0) { //BSATARIC: newTask doesn't exist as parent's reference - add it
+					config.insertTaskReference(parents[i], indices[i], newTask).setOperator(operators[i]);
+					model.nodeInserted(parents[i], indices[i]);
+					//BSATARIC: I guess here newTask already exist so insert it at i but also remove it from iref position
+				} else if (iref > indices[i]) { 
+					config.insertTaskReference(parents[i], indices[i], newTask).setOperator(operators[i]);
+					model.nodeInserted(parents[i], indices[i]);
+					check.remove();
+					model.nodeRemoved(parents[i], iref, check);
+				}
+			}
+			model.updateLevel1Nodes();
+			tree.expandPath(new TreePath(model.getPathToRoot(newTask)));
+			config.removeTask(oldTask);
 
 		} else if (type.equals("Path")) {
 
@@ -4651,6 +4866,8 @@ class ImportAllReferencesThread extends SwingWorker<String, String> {
 				type = "path";
 			else if (container instanceof Sequence)
 				type = "sequence";
+			else if (container instanceof Task)
+				type = "task";
 
 		return new String("Done!");
 	}
