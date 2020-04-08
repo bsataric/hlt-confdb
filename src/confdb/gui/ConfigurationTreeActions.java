@@ -1271,8 +1271,8 @@ public class ConfigurationTreeActions {
 		model.updateLevel1Nodes();
 
 		Diff diff = new Diff(external.config(), config);
-		String search = type + ":" + container.name();
-		diff.compare(search);
+		String search = type + ":" + container.name(); 
+		diff.compare(search);  //TODO: continue from here
 		if (!diff.isIdentical()) {
 			DiffDialog dlg = new DiffDialog(diff);
 			dlg.pack();
