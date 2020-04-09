@@ -129,6 +129,9 @@ public class ImportTreeMouseListener extends MouseAdapter {
 			} else if (node instanceof Sequence) {
 				item.addActionListener(new AddDeepContainerListener(currentTree, importConfiguration, container));
 				popup.add(item);
+			} else if (node instanceof Task) {
+				item.addActionListener(new AddDeepContainerListener(currentTree, importConfiguration, container));
+				popup.add(item);
 			}
 
 			popup.show(e.getComponent(), e.getX(), e.getY());

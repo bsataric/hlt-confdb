@@ -3098,6 +3098,15 @@ public class ConfigurationTreeActions {
 		config.sortSequences();
 		model.nodeStructureChanged(model.sequencesNode());
 	}
+	
+
+	/** sort Tasks */
+	public static void sortTasks(JTree tree) {
+		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
+		Configuration config = (Configuration) model.getRoot();
+		config.sortTasks();
+		model.nodeStructureChanged(model.tasksNode());
+	}
 
 	/** sort Modules */
 	public static void sortModules(JTree tree) {
