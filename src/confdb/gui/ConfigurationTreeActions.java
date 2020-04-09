@@ -1600,6 +1600,7 @@ public class ConfigurationTreeActions {
 	 * import Path / Sequence / Task. Perform updates and insertions of new
 	 * references into a target configuration. NOTE: Nodes are not updated in the
 	 * Tree model.
+	 * 
 	 * @author bsataric (TASKS)
 	 */
 	public static boolean importReferenceContainersNoModel(JTree tree, ReferenceContainer external, boolean update) {
@@ -1637,7 +1638,7 @@ public class ConfigurationTreeActions {
 				index = config.indexOfTask((Task) container);
 
 			if (update) {
-				while (container.entryCount() > 0) { //BSATARIC: remove all container entries?
+				while (container.entryCount() > 0) { // BSATARIC: remove all container entries?
 					Reference entry = (Reference) container.entry(0);
 					removeReference(config, null, entry);
 				}
@@ -1671,7 +1672,10 @@ public class ConfigurationTreeActions {
 		return true;
 	}
 
-	/** insert entries of an external reference container into the local copy @author bsataric (TASKS) */
+	/**
+	 * insert entries of an external reference container into the local copy @author
+	 * bsataric (TASKS)
+	 */
 	private static boolean importContainerEntries(Configuration config, ConfigurationTreeModel treeModel,
 			ReferenceContainer sourceContainer, ReferenceContainer targetContainer) {
 		boolean updateModel = (treeModel != null);
@@ -1804,9 +1808,10 @@ public class ConfigurationTreeActions {
 	 * structure is changed then DeepImportContainerEntriesSimulation must also be
 	 * changed to ensure the diff results matches the DeepImport results.
 	 * 
-	 * @author jimeneze @author bsataric (TASKS)
-	 * BSATARIC: difference then importContainerEntries is in fact that it checks order of imported entries (I think)
-	 * 			and that it removes the difference in entries in the end
+	 * @author jimeneze @author bsataric (TASKS) BSATARIC: difference then
+	 *         importContainerEntries is in fact that it checks order of imported
+	 *         entries (I think) and that it removes the difference in entries in
+	 *         the end
 	 */
 	private static boolean DeepImportContainerEntries(Configuration config, Configuration sourceConfig,
 			JTree targetTree, ReferenceContainer sourceContainer, ReferenceContainer targetContainer) {
@@ -2232,7 +2237,10 @@ public class ConfigurationTreeActions {
 		return result;
 	}
 
-	/** insert reference into currently selected reference container @author bsataric (TASKS)*/
+	/**
+	 * insert reference into currently selected reference container @author bsataric
+	 * (TASKS)
+	 */
 	public static boolean insertReference(JTree tree, String type, String name) {
 
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
@@ -2240,7 +2248,7 @@ public class ConfigurationTreeActions {
 		TreePath treePath = tree.getSelectionPath();
 		int depth = treePath.getPathCount();
 
-		TreePath parentTreePath = (depth == 3) ? treePath : treePath.getParentPath(); //BSATARIC: why 3?
+		TreePath parentTreePath = (depth == 3) ? treePath : treePath.getParentPath(); // BSATARIC: why 3?
 		ReferenceContainer parent = (ReferenceContainer) parentTreePath.getLastPathComponent();
 		int index = (depth == 3) ? 0 : parent.indexOfEntry((Reference) treePath.getLastPathComponent()) + 1;
 
@@ -2260,7 +2268,8 @@ public class ConfigurationTreeActions {
 		} else if (type.equalsIgnoreCase("Task")) {
 			Task referencedTask = config.task(name);
 			if (referencedTask == null)
-				return false;	//BSATARIC: parent is selected container and we make a reference on it to named task
+				return false; // BSATARIC: parent is selected container and we make a reference on it to named
+								// task
 			reference = config.insertTaskReference(parent, index, referencedTask);
 		} else if (type.equalsIgnoreCase("OutputModule")) {
 			OutputModule referencedOutput = config.output(name);
@@ -2588,9 +2597,10 @@ public class ConfigurationTreeActions {
 		tree.expandPath(Path);
 		tree.scrollPathToVisible(Path);
 	}
-	
+
 	/**
-	 * scroll to the Path given by the task name and expand the tree. @author bsataric
+	 * scroll to the Path given by the task name and expand the tree. @author
+	 * bsataric
 	 */
 	public static void scrollToTaskByName(String taskName, JTree tree) {
 		ConfigurationTreeModel model = (ConfigurationTreeModel) tree.getModel();
@@ -2905,7 +2915,8 @@ public class ConfigurationTreeActions {
 	}
 
 	/**
-	 * replace a container (path, sequence or task) with the internal one @author bsataric (TASKS)
+	 * replace a container (path, sequence or task) with the internal one @author
+	 * bsataric (TASKS)
 	 */
 	public static boolean replaceContainerInternally(JTree tree, String type, ReferenceContainer oldContainer,
 			String newObject) {
@@ -2970,7 +2981,8 @@ public class ConfigurationTreeActions {
 				return false;
 			if (config.task(oldTask.name()) == null)
 				return false;
-			Task newTask = config.task(newObject); //BSATARIC: newTask must exist already in config. It will replace old
+			Task newTask = config.task(newObject); // BSATARIC: newTask must exist already in config. It will replace
+													// old
 			if (newTask == null)
 				return false;
 
@@ -2981,11 +2993,12 @@ public class ConfigurationTreeActions {
 			Operator[] operators = new Operator[refCount];
 			int iRefCount = 0;
 			while (oldTask.referenceCount() > 0) {
-				Reference reference = oldTask.reference(0); //BSATARIC: fill old task parents (references)
+				Reference reference = oldTask.reference(0); // BSATARIC: fill old task parents (references)
 				parents[iRefCount] = reference.container();
 				indices[iRefCount] = parents[iRefCount].indexOfEntry(reference);
 				operators[iRefCount] = reference.getOperator();
-				reference.remove();  //BSATARIC: basically removes all references to parent objects from old task (double bind)
+				reference.remove(); // BSATARIC: basically removes all references to parent objects from old task
+									// (double bind)
 				model.nodeRemoved(parents[iRefCount], indices[iRefCount], reference);
 				iRefCount++;
 			}
@@ -2993,11 +3006,12 @@ public class ConfigurationTreeActions {
 			for (int i = 0; i < refCount; i++) {
 				Reference check = parents[i].entry(newTask.name());
 				int iref = parents[i].indexOfEntry(check);
-				if (iref < 0) { //BSATARIC: newTask doesn't exist as parent's reference - add it
+				if (iref < 0) { // BSATARIC: newTask doesn't exist as parent's reference - add it
 					config.insertTaskReference(parents[i], indices[i], newTask).setOperator(operators[i]);
 					model.nodeInserted(parents[i], indices[i]);
-					//BSATARIC: I guess here newTask already exist so insert it at i but also remove it from iref position
-				} else if (iref > indices[i]) { 
+					// BSATARIC: I guess here newTask already exist so insert it at i but also
+					// remove it from iref position
+				} else if (iref > indices[i]) {
 					config.insertTaskReference(parents[i], indices[i], newTask).setOperator(operators[i]);
 					model.nodeInserted(parents[i], indices[i]);
 					check.remove();
@@ -3098,7 +3112,6 @@ public class ConfigurationTreeActions {
 		config.sortSequences();
 		model.nodeStructureChanged(model.sequencesNode());
 	}
-	
 
 	/** sort Tasks */
 	public static void sortTasks(JTree tree) {

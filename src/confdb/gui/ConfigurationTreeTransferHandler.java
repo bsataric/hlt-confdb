@@ -212,6 +212,13 @@ public class ConfigurationTreeTransferHandler extends TransferHandler {
 				return ConfigurationTreeActions.moveSequence(targetTree, source);
 			}
 
+			// move a task
+			if (sourceNode instanceof Task
+					&& (targetNode instanceof Task || targetNode == targetModel.tasksNode())) {
+				Task source = (Task) sourceNode;
+				return ConfigurationTreeActions.moveTask(targetTree, source);
+			}
+
 			// move a reference within its parent container
 			if (sourceNode instanceof Reference
 					&& (targetNode instanceof Reference || targetNode instanceof ReferenceContainer)) {
