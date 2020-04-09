@@ -12,11 +12,11 @@ import confdb.data.PrimaryDataset;
 
 
 /**
- * CreateDatasetDialog
- * -------------------
+ * CreateDatasetDialog -------------------
+ * 
  * @author Philipp Schieferdecker
  *
- * Create a new primary dataset off an existing stream.
+ *         Create a new primary dataset off an existing stream.
  */
 public class CreateDatasetDialog extends JDialog
 {

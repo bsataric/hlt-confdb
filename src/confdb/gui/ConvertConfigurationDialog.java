@@ -487,7 +487,7 @@ public class ConvertConfigurationDialog extends JDialog {
 					}
 					checkBox.setSelected(isSelected);
 					checkBox.setEnabled(false);
-				}  else if (value == treeModel.tasksNode()) {
+				} else if (value == treeModel.tasksNode()) {
 					boolean isSelected = false;
 					if (modifications.requestedTaskIterator().hasNext())
 						isSelected = true;
@@ -506,7 +506,7 @@ public class ConvertConfigurationDialog extends JDialog {
 					}
 					checkBox.setSelected(isSelected);
 					checkBox.setEnabled(false);
-				}  else if (value == treeModel.modulesNode()) {
+				} else if (value == treeModel.modulesNode()) {
 					boolean isSelected = false;
 					if (modifications.requestedModuleIterator().hasNext())
 						isSelected = true;
