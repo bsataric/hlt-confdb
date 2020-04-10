@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * Task --------
  * 
- * @author Bogdan Sataric
+ * @author bsataric
  * 
  *         A 'Task' can host any number of ModuleReferences and TaskReferences,
  *         but no references to other Paths.
