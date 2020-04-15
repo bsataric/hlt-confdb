@@ -49,7 +49,7 @@ public class Task extends ReferenceContainer {
 		return false;
 	}
 
-	/** create a reference of this in a reference container (path/Task) */
+	/** create a reference of this in a reference container (path/Sequence/Task) */
 	public Reference createReference(ReferenceContainer container, int i) {
 		TaskReference reference = new TaskReference(container, this);
 		references.add(reference);
