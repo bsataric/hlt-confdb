@@ -417,7 +417,7 @@ public class Configuration implements IConfiguration {
 		return true;
 	}
 
-	/** number of empty containers (paths / sequences) */
+	/** number of empty containers (paths / sequences / tasks) */
 	public int emptyContainerCount() {
 		int result = 0;
 		Iterator<Path> itP = paths.iterator();
@@ -433,8 +433,11 @@ public class Configuration implements IConfiguration {
 				result++;
 		}
 		Iterator<Task> itT = tasks.iterator();
+		int taskNumber = 0;
 		while (itT.hasNext()) {
 			Task t = itT.next();
+			System.out.println("TASK NUMBER: " + taskNumber++);
+			System.out.println("TASK ENTRYCOUNT: " + t.entryCount());
 			if (t.entryCount() == 0)
 				result++;
 		}

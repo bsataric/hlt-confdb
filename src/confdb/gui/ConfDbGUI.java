@@ -477,7 +477,7 @@ public class ConfDbGUI {
 
 	/** create the GUI and show it */
 	private static void createAndShowGUI() {
-		JFrame frame = new JFrame("GDR ConfDbGUI");
+		JFrame frame = new JFrame("GDR ConfDbGUI - DEVELOPEMENT");
 		ConfDbGUI gui = new ConfDbGUI(frame);
 
 		int frameWidth = (int) (0.75 * frame.getToolkit().getScreenSize().getWidth());
