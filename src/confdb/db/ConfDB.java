@@ -1504,14 +1504,14 @@ public class ConfDB {
 			while (rsSequenceAndTaskEntries.next()) { // BSATARIC: I guess list of all sequences in configuration
 				// System.out.println("SEQUENCE LOADING...");
 
-				int seqeunceOrTaskId = rsSequenceAndTaskEntries.getInt(1);
+				int sequenceOrTaskId = rsSequenceAndTaskEntries.getInt(1);
 				int entryLvl = rsSequenceAndTaskEntries.getInt(3);
 				int entryId = rsSequenceAndTaskEntries.getInt(4);
 				int sequenceNb = rsSequenceAndTaskEntries.getInt(5);
 				String entryType = rsSequenceAndTaskEntries.getString(6);
 
 				// if (entryLvl == 0)
-				System.out.println("SEQUENCE/TASK parent " + seqeunceOrTaskId + " lvl = " + entryLvl + " entryId " + entryId
+				System.out.println("SEQUENCE/TASK parent " + sequenceOrTaskId + " lvl = " + entryLvl + " entryId " + entryId
 						+ " ord " + sequenceNb + " entryType = " + entryType);
 
 				System.out.println("ENTRY LEVEL: " + entryLvl);
@@ -1520,7 +1520,7 @@ public class ConfDB {
 				while (entryLvl < previouslvl) { // next sequence/task in the entries (zero level)
 					if ((!seqOrTaskToSkip) && (entryLvl >= lvltoskip)) {
 						idlifo.pop();
-						System.out.println("POPPED seqeunceOrTaskId: " + entryId + "parentId " + seqeunceOrTaskId);
+						System.out.println("POPPED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
 					}
 					previouslvl--;
 					if (previouslvl < lvltoskip) {
@@ -1544,32 +1544,32 @@ public class ConfDB {
 						idlifo.push(entryId);
 						previouslvl++;
 						lvltoskip = 1;
-						if (entryType == "Sequence") {
+						if (entryType.equals("Sequence")) {
 							Sequence entry = idToSequences.get(entryId);
 
-							System.out.println("PUSHED seqeunceOrTaskId: " + entryId + "parentId " + seqeunceOrTaskId
+							System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId
 									+ " sequenceName " + entry.name());
 
-							// System.err.println(" inserting seq "+seqeunceOrTaskId+" into sequenceToId" );
-							entry.setDatabaseId(seqeunceOrTaskId);
-							sequenceToId.put(entry, seqeunceOrTaskId);
-						} else if (entryType == "Task") {
+							// System.err.println(" inserting seq "+sequenceOrTaskId+" into sequenceToId" );
+							entry.setDatabaseId(sequenceOrTaskId);
+							sequenceToId.put(entry, sequenceOrTaskId);
+						} else if (entryType.equals("Task")) {
 							Task entry = idToTasks.get(entryId);
 
-							System.out.println("PUSHED seqeunceOrTaskId: " + entryId + "parentId " + seqeunceOrTaskId + " taskName "
+							System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId + " taskName "
 									+ entry.name());
 
-							// System.err.println(" inserting seq "+seqeunceOrTaskId+" into sequenceToId" );
-							entry.setDatabaseId(seqeunceOrTaskId);
-							taskToId.put(entry, seqeunceOrTaskId);
+							// System.err.println(" inserting seq "+sequenceOrTaskId+" into sequenceToId" );
+							entry.setDatabaseId(sequenceOrTaskId);
+							taskToId.put(entry, sequenceOrTaskId);
 						}
 					}
 				}
 				if ((entryLvl > 0) && (!seqOrTaskToSkip)) { // BSATARIC: entryLvl > 0 what is that? Sequences part of
 														// sequences?
-					seqeunceOrTaskId = idlifo.peek();
+					sequenceOrTaskId = idlifo.peek();
 
-					Sequence sequence = idToSequences.get(seqeunceOrTaskId);
+					Sequence sequence = idToSequences.get(sequenceOrTaskId);
 					if (sequence != null) { //if there is sequence with this ID - otherwise it is a task
 						int index = sequence.entryCount();
 						sequenceNb = index;
@@ -1599,7 +1599,7 @@ public class ConfDB {
 								lvltoskip = entryLvl + 1;
 							} else {
 								idlifo.push(entryId);
-								System.out.println("PUSHED seqeunceOrTaskId: " + entryId + "parentId " + seqeunceOrTaskId);
+								System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
 								previouslvl++;
 							}
 
@@ -1618,7 +1618,7 @@ public class ConfDB {
 								lvltoskip = entryLvl + 1;
 							} else {
 								idlifo.push(entryId);
-								System.out.println("PUSHED seqeunceOrTaskId: " + entryId + "parentId " + seqeunceOrTaskId);
+								System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
 								previouslvl++;
 							}
 
@@ -1643,10 +1643,10 @@ public class ConfDB {
 						} else
 							System.err.println("Invalid entryType '" + entryType + "'");
 
-						sequence.setDatabaseId(seqeunceOrTaskId);
-						sequenceToId.put(sequence, seqeunceOrTaskId);
+						sequence.setDatabaseId(sequenceOrTaskId);
+						sequenceToId.put(sequence, sequenceOrTaskId);
 					} else { // BSATARIC TASKS
-						Task task = idToTasks.get(seqeunceOrTaskId);
+						Task task = idToTasks.get(sequenceOrTaskId);
 
 						int index = task.entryCount();
 						sequenceNb = index;
@@ -1676,7 +1676,7 @@ public class ConfDB {
 								lvltoskip = entryLvl + 1;
 							} else {
 								idlifo.push(entryId);
-								System.out.println("PUSHED taskId: " + entryId + "parentId " + seqeunceOrTaskId);
+								System.out.println("PUSHED taskId: " + entryId + "parentId " + sequenceOrTaskId);
 								previouslvl++;
 							}
 
@@ -1705,8 +1705,8 @@ public class ConfDB {
 						} else
 							System.err.println("Invalid entryType '" + entryType + "'");
 
-						task.setDatabaseId(seqeunceOrTaskId);
-						taskToId.put(task, seqeunceOrTaskId);
+						task.setDatabaseId(sequenceOrTaskId);
+						taskToId.put(task, sequenceOrTaskId);
 					}
 				}
 			}
@@ -1904,6 +1904,9 @@ public class ConfDB {
 				int databaseId = primaryDatasetToId.get(primaryDataset);
 				primaryDataset.setDatabaseId(databaseId);
 			}
+
+			
+			System.out.println("Problematic config: " + configId);
 
 			Iterator<Sequence> sequenceIt = config.sequenceIterator();
 			while (sequenceIt.hasNext()) {
