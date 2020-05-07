@@ -466,6 +466,9 @@ public class ConfigurationTreeActions {
 				} else if (instances[i] instanceof Sequence) {
 					Sequence seq = (Sequence) instances[i];
 					config.insertSequenceReference(container, index + i, seq).setOperator(operators[i]);
+				} else if (instances[i] instanceof Task) {
+					Task tas = (Task) instances[i];
+					config.insertTaskReference(container, index + i, tas).setOperator(operators[i]);
 				} else if (instances[i] instanceof Path) {
 					Path path = (Path) instances[i];
 					config.insertPathReference(container, index + i, path).setOperator(operators[i]);
@@ -2922,6 +2925,10 @@ public class ConfigurationTreeActions {
 			String newObject) {
 		if (tree == null || type == null || oldContainer == null || newObject == null)
 			return false;
+		
+		System.out.println("NEW OBJECT: " + newObject);
+		System.out.println("OLD CONTAINER NAME: " + oldContainer.name());
+		
 		if (newObject.equals(oldContainer.name()))
 			return false;
 
@@ -2933,13 +2940,19 @@ public class ConfigurationTreeActions {
 		if (type.equals("Sequence")) {
 
 			Sequence oldSequence = (Sequence) oldContainer;
-			if (oldSequence == null)
+			if (oldSequence == null) {
+				System.out.println("oldSequence == null");
 				return false;
-			if (config.sequence(oldSequence.name()) == null)
+			}
+			if (config.sequence(oldSequence.name()) == null) {
+				System.out.println("oldSequence.name()) == null");
 				return false;
+			}
 			Sequence newSequence = config.sequence(newObject);
-			if (newSequence == null)
+			if (newSequence == null) {
+				System.out.println("newSequence == null");
 				return false;
+			}
 
 			int index = config.indexOfSequence(oldSequence);
 			int refCount = oldSequence.referenceCount();
@@ -2955,8 +2968,11 @@ public class ConfigurationTreeActions {
 				reference.remove();
 				model.nodeRemoved(parents[iRefCount], indices[iRefCount], reference);
 				iRefCount++;
+				System.out.println("Reference removed: " + reference.name());
 			}
 			model.nodeRemoved(model.sequencesNode(), index, oldSequence);
+			System.out.println("Sequence node removed at index: " + index);
+
 			for (int i = 0; i < refCount; i++) {
 				Reference check = parents[i].entry(newSequence.name());
 				int iref = parents[i].indexOfEntry(check);
@@ -2969,6 +2985,7 @@ public class ConfigurationTreeActions {
 					check.remove();
 					model.nodeRemoved(parents[i], iref, check);
 				}
+				System.out.println("IREF: " + iref);
 			}
 			model.updateLevel1Nodes();
 			tree.expandPath(new TreePath(model.getPathToRoot(newSequence)));
