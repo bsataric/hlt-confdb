@@ -159,6 +159,7 @@ public class ReleaseMigrator {
 		for (int i = 0; i < sourceConfig.taskCount(); i++) {
 			Task source = sourceConfig.task(i);
 			Task target = targetConfig.insertTask(i, source.name());
+			System.out.println("Migrating task " + source.name());
 		}
 
 		// migrate eventcontent

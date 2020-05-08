@@ -139,7 +139,7 @@ public class Configuration implements IConfiguration {
 		this.configInfo = configInfo;
 	}
 
-	/** overlaod toString() */
+	/** Overload toString() */
 	public String toString() {
 		String result = new String();
 		if (configInfo == null)
