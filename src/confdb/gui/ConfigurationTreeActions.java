@@ -2925,10 +2925,10 @@ public class ConfigurationTreeActions {
 			String newObject) {
 		if (tree == null || type == null || oldContainer == null || newObject == null)
 			return false;
-		
+
 		System.out.println("NEW OBJECT: " + newObject);
 		System.out.println("OLD CONTAINER NAME: " + oldContainer.name());
-		
+
 		if (newObject.equals(oldContainer.name()))
 			return false;
 

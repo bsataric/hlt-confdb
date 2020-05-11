@@ -453,7 +453,7 @@ public class Diff {
 			} else if (type.equalsIgnoreCase("Task") || type.equalsIgnoreCase("t")) {
 				Task told = config1.task(oldName);
 				Task tnew = config2.task(newName);
-				Comparison c = compareContainers(told, tnew); //BSATARIC: black box
+				Comparison c = compareContainers(told, tnew); // BSATARIC: black box
 				if (!c.isIdentical()) {
 					tasks.add(c);
 					Iterator<Comparison> it = c.recursiveComparisonIterator();
@@ -657,7 +657,7 @@ public class Diff {
 				outputs.add(compareOutputModules(out1, null));
 		}
 	}
-	
+
 	/** compare all Sequences and store all non-identical comparisons */
 	public void compareSequences() {
 		// Sequences
@@ -702,7 +702,7 @@ public class Diff {
 				sequences.add(compareContainersIgnoreStreams(seq1, null));
 		}
 	}
-	
+
 	/** compare all Tasks and store all non-identical comparisons */
 	public void compareTasks() {
 		// Tasks
@@ -725,10 +725,10 @@ public class Diff {
 	/**
 	 * compareTasksIgnoreStreams
 	 * ---------------------------------------------------------------- Compare all
-	 * Tasks and store all non-identical comparisons NOTE: This method ignores
-	 * the Streams by making use of the constructor
-	 * "compareContainersIgnoreStreams". This was originally designed to ignore
-	 * extra differences in the previous analysis of DeepImport feature.
+	 * Tasks and store all non-identical comparisons NOTE: This method ignores the
+	 * Streams by making use of the constructor "compareContainersIgnoreStreams".
+	 * This was originally designed to ignore extra differences in the previous
+	 * analysis of DeepImport feature.
 	 */
 	public void compareTasksIgnoreStreams() {
 		// Tasks
@@ -747,7 +747,6 @@ public class Diff {
 				tasks.add(compareContainersIgnoreStreams(tas1, null));
 		}
 	}
-	
 
 	/** compare all EventContents sets and store all non-identical comparisons */
 	public void compareEventContents() {
@@ -810,8 +809,8 @@ public class Diff {
 	/** check if there are any differences at all */
 	public boolean isIdentical() {
 		return (psetCount() == 0 && edsourceCount() == 0 && essourceCount() == 0 && esmoduleCount() == 0
-				&& serviceCount() == 0 && pathCount() == 0 && sequenceCount() == 0 && taskCount() == 0 
-				&& moduleCount() == 0 && outputCount() == 0 && contentCount() == 0 && streamCount() == 0 
+				&& serviceCount() == 0 && pathCount() == 0 && sequenceCount() == 0 && taskCount() == 0
+				&& moduleCount() == 0 && outputCount() == 0 && contentCount() == 0 && streamCount() == 0
 				&& datasetCount() == 0);
 	}
 
@@ -934,7 +933,7 @@ public class Diff {
 	public Iterator<Comparison> pathIterator() {
 		return paths.iterator();
 	}
-	
+
 	/** number of sequences */
 	public int sequenceCount() {
 		return sequences.size();
@@ -954,7 +953,7 @@ public class Diff {
 	public Iterator<Comparison> sequenceIterator() {
 		return sequences.iterator();
 	}
-	
+
 	/** number of tasks */
 	public int taskCount() {
 		return tasks.size();
@@ -1176,8 +1175,9 @@ public class Diff {
 
 		Comparison result = new ContainerComparison(rc1, rc2);
 
-		//BSATARIC: going from parent components (rc1 and rc2) dig into child components (entries) and compare them
-		if (!result.isAdded() && !result.isRemoved()) {	
+		// BSATARIC: going from parent components (rc1 and rc2) dig into child
+		// components (entries) and compare them
+		if (!result.isAdded() && !result.isRemoved()) {
 			Iterator<Reference> itRef2 = rc2.entryIterator();
 			while (itRef2.hasNext()) {
 				Reference reference2 = itRef2.next();
@@ -1238,10 +1238,10 @@ public class Diff {
 	/**
 	 * compareContainersIgnoreStreams
 	 * ---------------------------------------------------------------- compare two
-	 * reference containers (path/sequence/task) NOTE: This method ignores the Streams by
-	 * making use of the constructor "OutputModuleComparison" with the flag "TRUE".
-	 * This was originally designed to ignore extra differences in the previous
-	 * analysis of DeepImport feature.
+	 * reference containers (path/sequence/task) NOTE: This method ignores the
+	 * Streams by making use of the constructor "OutputModuleComparison" with the
+	 * flag "TRUE". This was originally designed to ignore extra differences in the
+	 * previous analysis of DeepImport feature.
 	 */
 	public Comparison compareContainersIgnoreStreams(ReferenceContainer rc1, ReferenceContainer rc2) {
 		if (rc1 != null && rc2 != null && containerMap.containsKey(rc1.name() + "::" + rc2.name()))
@@ -1403,7 +1403,7 @@ public class Diff {
 			result.append("Sequences (" + sequenceCount() + "):\n");
 			result.append(printContainerComparisons(sequenceIterator()));
 		}
-		
+
 		// tasks
 		if (taskCount() > 0) {
 			result.append("\n---------------------------------------" + "----------------------------------------\n");

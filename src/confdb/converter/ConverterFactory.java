@@ -108,8 +108,7 @@ public class ConverterFactory {
 		return (ISequenceWriter) getWriter("SequenceWriter");
 	}
 	
-	public ITaskWriter getTaskWriter()
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public ITaskWriter getTaskWriter() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		return (ITaskWriter) getWriter("TaskWriter");
 	}
 

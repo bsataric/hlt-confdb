@@ -278,7 +278,7 @@ public class ConfigurationModifier implements IConfiguration {
 			if (sequence != null && sequences.indexOf(sequence) < 0)
 				sequences.add(sequence);
 		}
-		
+
 		Iterator<String> itT = modifications.requestedTaskIterator();
 		while (itT.hasNext()) {
 			Task task = master.task(itT.next());
@@ -371,8 +371,7 @@ public class ConfigurationModifier implements IConfiguration {
 		}
 		return result.iterator();
 	}
-	
-	
+
 	/**
 	 * order tasks such that each task is defined before being referenced
 	 */

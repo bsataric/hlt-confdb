@@ -8,7 +8,8 @@ import java.util.Iterator;
  * @author Philipp Schieferdecker
  * 
  *         A 'Sequence' can host any number of ModuleReferences,
- *         SequenceReferences or TaskReferences, but no references to other Paths.
+ *         SequenceReferences or TaskReferences, but no references to other
+ *         Paths.
  */
 public class Sequence extends ReferenceContainer {
 	//
@@ -26,10 +27,8 @@ public class Sequence extends ReferenceContainer {
 
 	/** insert a module into the sequence */
 	public void insertEntry(int i, Reference reference) {
-		if (reference instanceof ModuleReference 
-				|| reference instanceof SequenceReference
-				|| reference instanceof TaskReference
-				|| reference instanceof OutputModuleReference) {
+		if (reference instanceof ModuleReference || reference instanceof SequenceReference
+				|| reference instanceof TaskReference || reference instanceof OutputModuleReference) {
 			if (!entries.contains(reference)) {
 				entries.add(i, reference);
 				setHasChanged();

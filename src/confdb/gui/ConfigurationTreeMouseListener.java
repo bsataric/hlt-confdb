@@ -55,7 +55,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 
 	/** popup menu associated with sequences */
 	private JPopupMenu popupSequences = null;
-	
+
 	/** popup menu associated with tasks */
 	private JPopupMenu popupTasks = null;
 
@@ -91,7 +91,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 
 	/** action listener for sequences-menu actions */
 	private SequenceMenuListener sequenceListener = null;
-	
+
 	/** action listener for tasks-menu actions */
 	private TaskMenuListener taskListener = null;
 
@@ -243,7 +243,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 			popupSequences.show(e.getComponent(), e.getX(), e.getY());
 			return;
 		}
-		
+
 		// show the 'Tasks' popup?
 		if (isInTreePath(treePath, treeModel.tasksNode())/* &&depth<=4 */) {
 			updateTaskMenu();
@@ -572,7 +572,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 
 			JMenu addSequenceMenu = createAddRepSequenceMenu(path, pathListener, false, true);
 			popupPaths.add(addSequenceMenu);
-			
+
 			JMenu addTaskMenu = createAddRepTaskMenu(path, pathListener, false, true);
 			popupPaths.add(addTaskMenu);
 
@@ -713,7 +713,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 
 			JMenu addSequenceMenu = createAddRepSequenceMenu(path, pathListener, false, true);
 			popupPaths.add(addSequenceMenu);
-			
+
 			JMenu addTaskMenu = createAddRepTaskMenu(path, pathListener, false, true);
 			popupPaths.add(addTaskMenu);
 
@@ -806,7 +806,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 
 			JMenu addSequenceMenu = createAddRepSequenceMenu(sequence, sequenceListener, false, true);
 			popupSequences.add(addSequenceMenu);
-			
+
 			JMenu addTaskMenu = createAddRepTaskMenu(sequence, sequenceListener, false, true);
 			popupSequences.add(addTaskMenu);
 
@@ -841,7 +841,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 
 			JMenu addSequenceMenu = createAddRepSequenceMenu(sequence, sequenceListener, true, true);
 			popupSequences.add(addSequenceMenu);
-			
+
 			JMenu addTaskMenu = createAddRepTaskMenu(sequence, sequenceListener, false, true);
 			popupSequences.add(addTaskMenu);
 
@@ -901,7 +901,7 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 		}
 
 	}
-	
+
 	/** update 'Tasks' Menu */
 	public void updateTaskMenu() {
 		JMenuItem menuItem;
@@ -1677,8 +1677,8 @@ public class ConfigurationTreeMouseListener extends MouseAdapter {
 	}
 
 	/** create 'Add/Replace Task' Menu */
-	private JMenu createAddRepTaskMenu(ReferenceContainer pathOrTask, ActionListener listener, 
-			boolean isTasRef, boolean isAdd) {
+	private JMenu createAddRepTaskMenu(ReferenceContainer pathOrTask, ActionListener listener, boolean isTasRef,
+			boolean isAdd) {
 		String actionCmd = null;
 		JMenu taskMenu = null;
 		if (isAdd) {
@@ -2063,7 +2063,6 @@ class SequenceMenuListener implements ActionListener {
 	}
 
 }
-
 
 /**
  * listen to actions from the 'Tasks' popup menu x

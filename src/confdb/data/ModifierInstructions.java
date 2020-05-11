@@ -777,7 +777,7 @@ public class ModifierInstructions {
 				if (!isUndefined(t))
 					undefineTask(t.name());
 			}
-			Iterator<ModuleInstance> itM = task.moduleIterator();	//hope this is OK
+			Iterator<ModuleInstance> itM = task.moduleIterator(); // hope this is OK
 			while (itM.hasNext()) {
 				ModuleInstance m = itM.next();
 				if (!isUndefined(m))
@@ -941,7 +941,7 @@ public class ModifierInstructions {
 	public Iterator<String> requestedTaskIterator() {
 		return requestedTasks.iterator();
 	}
-	
+
 	/** get iterator for requested modules */
 	public Iterator<String> requestedModuleIterator() {
 		return requestedModules.iterator();
@@ -1276,12 +1276,12 @@ public class ModifierInstructions {
 	public void requestTask(String taskName) {
 		requestedTasks.add(taskName);
 	}
-	
+
 	/** unrequest a task regardless of it being referenced in path */
 	public void unrequestTask(String taskName) {
 		requestedTasks.remove(taskName);
 	}
-	
+
 	/** remove task from list of undefined tasks */
 	public void redefineTask(String taskName) {
 		undefinedTasks.remove(taskName);

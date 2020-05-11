@@ -328,8 +328,8 @@ public class DatabaseConnectionDialog extends JDialog implements ActionListener,
 
 		textFieldDbUser.addActionListener(this);
 		textFieldDbUser.addFocusListener(this);
-		
-		//BSATARIC
+
+		// BSATARIC
 		textFieldDbUser.setEditable(false);
 		textFieldDbUser.setEnabled(false);
 

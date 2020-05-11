@@ -2094,20 +2094,20 @@ public class ConfDbGUI {
 			database.loadSoftwareRelease(targetReleaseTag, targetRelease);
 
 			String targetProcessName = currentConfig.processName();
-			
+
 			System.out.println("targetProcessName " + targetProcessName);
 
 			ConfigInfo targetConfigInfo = new ConfigInfo(currentConfig.name(), currentConfig.parentDir(), -1,
 					currentConfig.version(), "", userName, targetReleaseTag, targetProcessName,
 					"migrated from " + currentRelease.releaseTag());
-			
+
 			System.out.println("targetConfigInfo " + targetConfigInfo.toString());
 
 			targetConfig = new Configuration(targetConfigInfo, targetRelease);
-			
+
 			System.out.println("currentConfig " + currentConfig.toString());
 			System.out.println("targetConfig " + targetConfig.toString());
-			
+
 			migrator = new ReleaseMigrator(currentConfig, targetConfig);
 			migrator.migrate();
 
@@ -2836,9 +2836,8 @@ public class ConfDbGUI {
 	/** display the configuration snippet for currently selected component */
 	private void displaySnippet() {
 		// by default some tabs are disabled.
-		if ((!(currentParameterContainer instanceof Path)) || 
-			(!(currentParameterContainer instanceof Sequence)) || 
-			(!(currentParameterContainer instanceof Task)))
+		if ((!(currentParameterContainer instanceof Path)) || (!(currentParameterContainer instanceof Sequence))
+				|| (!(currentParameterContainer instanceof Task)))
 			restoreRightLowerTabs();
 
 		if (currentParameterContainer == currentConfig.psets()) {

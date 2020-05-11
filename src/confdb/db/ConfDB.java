@@ -1200,7 +1200,7 @@ public class ConfDB {
 
 		ResultSet rsPathEntries = null;
 		ResultSet rsSequenceAndTaskEntries = null;
-		//ResultSet rsTaskEntries = null;
+		// ResultSet rsTaskEntries = null;
 		ResultSet rsPrepareSequence = null;
 		ResultSet rsPrepareTask = null;
 
@@ -1251,9 +1251,9 @@ public class ConfDB {
 			psSelectSequenceAndTaskEntries.setInt(2, configId);
 			rsSequenceAndTaskEntries = psSelectSequenceAndTaskEntries.executeQuery();
 
-			//psSelectTaskEntries.setInt(1, configId);
-			//psSelectTaskEntries.setInt(2, configId);
-			//rsTaskEntries = psSelectTaskEntries.executeQuery();
+			// psSelectTaskEntries.setInt(1, configId);
+			// psSelectTaskEntries.setInt(2, configId);
+			// rsTaskEntries = psSelectTaskEntries.executeQuery();
 
 			psSelectEventContentEntries.setInt(1, configId);
 			rsEventContentEntries = psSelectEventContentEntries.executeQuery();
@@ -1511,8 +1511,8 @@ public class ConfDB {
 				String entryType = rsSequenceAndTaskEntries.getString(6);
 
 				// if (entryLvl == 0)
-				System.out.println("SEQUENCE/TASK parent " + sequenceOrTaskId + " lvl = " + entryLvl + " entryId " + entryId
-						+ " ord " + sequenceNb + " entryType = " + entryType);
+				System.out.println("SEQUENCE/TASK parent " + sequenceOrTaskId + " lvl = " + entryLvl + " entryId "
+						+ entryId + " ord " + sequenceNb + " entryType = " + entryType);
 
 				System.out.println("ENTRY LEVEL: " + entryLvl);
 				System.out.println("PREVIOUS LEVEL: " + previouslvl);
@@ -1556,8 +1556,8 @@ public class ConfDB {
 						} else if (entryType.equals("Task")) {
 							Task entry = idToTasks.get(entryId);
 
-							System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId + " taskName "
-									+ entry.name());
+							System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId
+									+ " taskName " + entry.name());
 
 							// System.err.println(" inserting seq "+sequenceOrTaskId+" into sequenceToId" );
 							entry.setDatabaseId(sequenceOrTaskId);
@@ -1566,11 +1566,11 @@ public class ConfDB {
 					}
 				}
 				if ((entryLvl > 0) && (!seqOrTaskToSkip)) { // BSATARIC: entryLvl > 0 what is that? Sequences part of
-														// sequences?
+					// sequences?
 					sequenceOrTaskId = idlifo.peek();
 
 					Sequence sequence = idToSequences.get(sequenceOrTaskId);
-					if (sequence != null) { //if there is sequence with this ID - otherwise it is a task
+					if (sequence != null) { // if there is sequence with this ID - otherwise it is a task
 						int index = sequence.entryCount();
 						sequenceNb = index;
 
@@ -1599,7 +1599,8 @@ public class ConfDB {
 								lvltoskip = entryLvl + 1;
 							} else {
 								idlifo.push(entryId);
-								System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
+								System.out.println(
+										"PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
 								previouslvl++;
 							}
 
@@ -1612,13 +1613,15 @@ public class ConfDB {
 							}
 							config.insertSequenceReference(sequence, index, entry).setOperator(operator);
 							// }
-						} else if (entryType.equals("Task")) { //treat nested task inside sequence in the same way as nested sequence
+						} else if (entryType.equals("Task")) { // treat nested task inside sequence in the same way as
+																// nested sequence
 							if (seqOrTaskDone[entryId]) {
 								seqOrTaskToSkip = true;
 								lvltoskip = entryLvl + 1;
 							} else {
 								idlifo.push(entryId);
-								System.out.println("PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
+								System.out.println(
+										"PUSHED sequenceOrTaskId: " + entryId + "parentId " + sequenceOrTaskId);
 								previouslvl++;
 							}
 
@@ -1670,7 +1673,8 @@ public class ConfDB {
 							System.err.println("ERROR in sequence " + task.name() + ": index=" + index + " sequenceNb="
 									+ sequenceNb);
 
-						if (entryType.equals("Task")) { //treat nested task inside task in the same way as nested sequence
+						if (entryType.equals("Task")) { // treat nested task inside task in the same way as nested
+														// sequence
 							if (seqOrTaskDone[entryId]) {
 								seqOrTaskToSkip = true;
 								lvltoskip = entryLvl + 1;
@@ -1905,7 +1909,6 @@ public class ConfDB {
 				primaryDataset.setDatabaseId(databaseId);
 			}
 
-			
 			System.out.println("Problematic config: " + configId);
 
 			Iterator<Sequence> sequenceIt = config.sequenceIterator();
@@ -5804,8 +5807,9 @@ public class ConfDB {
 
 			/*
 			 * int sequenceId = rsSequenceAndTaskEntries.getInt(1); int entryLvl =
-			 * rsSequenceAndTaskEntries.getInt(3); int entryId = rsSequenceAndTaskEntries.getInt(4); int
-			 * sequenceNb = rsSequenceAndTaskEntries.getInt(5); String entryType =
+			 * rsSequenceAndTaskEntries.getInt(3); int entryId =
+			 * rsSequenceAndTaskEntries.getInt(4); int sequenceNb =
+			 * rsSequenceAndTaskEntries.getInt(5); String entryType =
 			 * rsSequenceAndTaskEntries.getString(6);
 			 * 
 			 */

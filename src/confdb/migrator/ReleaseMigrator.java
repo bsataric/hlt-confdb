@@ -154,7 +154,7 @@ public class ReleaseMigrator {
 			Sequence source = sourceConfig.sequence(i);
 			Sequence target = targetConfig.insertSequence(i, source.name());
 		}
-		
+
 		// migrate Tasks
 		for (int i = 0; i < sourceConfig.taskCount(); i++) {
 			Task source = sourceConfig.task(i);
@@ -223,7 +223,7 @@ public class ReleaseMigrator {
 			Sequence target = targetConfig.sequence(i);
 			migrateReferences(source, target);
 		}
-		
+
 		// migrate References within Tasks
 		for (int i = 0; i < sourceConfig.taskCount(); i++) {
 			Task source = sourceConfig.task(i);
@@ -358,7 +358,10 @@ public class ReleaseMigrator {
 
 	}
 
-	/** migrate references from source Path/Sequence/Task to target Path/Sequence/Task */
+	/**
+	 * migrate references from source Path/Sequence/Task to target
+	 * Path/Sequence/Task
+	 */
 	private void migrateReferences(ReferenceContainer source, ReferenceContainer target) {
 		int iTarget = 0;
 		for (int i = 0; i < source.entryCount(); i++) {
@@ -379,8 +382,7 @@ public class ReleaseMigrator {
 			} else if (reference instanceof TaskReference) {
 				Task sourceTask = (Task) reference.parent();
 				Task targetTask = targetConfig.task(sourceConfig.indexOfTask(sourceTask));
-				TaskReference targetReference = targetConfig.insertTaskReference(target, iTarget++,
-						targetTask);
+				TaskReference targetReference = targetConfig.insertTaskReference(target, iTarget++, targetTask);
 				targetReference.setOperator(reference.getOperator());
 			} else if (reference instanceof ModuleReference) {
 				ModuleInstance sourceModule = (ModuleInstance) reference.parent();

@@ -56,7 +56,7 @@ public class ConfigurationTreeRenderer extends DefaultTreeCellRenderer {
 
 	/** sequence icon */
 	private ImageIcon sequenceIcon = null;
-	
+
 	/** task icon */
 	private ImageIcon taskIcon = null;
 
@@ -137,8 +137,7 @@ public class ConfigurationTreeRenderer extends DefaultTreeCellRenderer {
 			return sequenceIcon;
 		} else if (node instanceof Task || node instanceof TaskReference) {
 			return taskIcon;
-		}
-		else if (node instanceof PSetParameter) {
+		} else if (node instanceof PSetParameter) {
 			IConfiguration config = (IConfiguration) treeModel.getRoot();
 			if (config.indexOfPSet((PSetParameter) node) >= 0)
 				return psetIcon;

@@ -162,7 +162,7 @@ public class ConfDBCreateConfig {
 			Iterator<Sequence> itRmv = toBeRemoved.iterator();
 			while (itRmv.hasNext())
 				masterConfig.removeSequence(itRmv.next());
-			
+
 			// remove unreferenced tasks
 			ArrayList<Task> tasksToBeRemoved = new ArrayList<Task>();
 			Iterator<Task> itTas = masterConfig.taskIterator();

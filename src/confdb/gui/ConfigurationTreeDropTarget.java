@@ -238,9 +238,9 @@ public class ConfigurationTreeDropTarget extends DropTarget {
 				|| (sourceNode instanceof ESModuleInstance && selectedNode == model.esmodulesNode())
 				|| (sourceNode instanceof ServiceInstance && selectedNode == model.servicesNode())
 				|| ((sourceNode instanceof ModuleInstance || sourceNode instanceof Sequence
-				  || sourceNode instanceof Task || sourceNode instanceof Reference)
-				&& (selectedNode instanceof ReferenceContainer || selectedNode == model.pathsNode()
-				 || selectedNode == model.sequencesNode() || selectedNode == model.tasksNode()))
+						|| sourceNode instanceof Task || sourceNode instanceof Reference)
+						&& (selectedNode instanceof ReferenceContainer || selectedNode == model.pathsNode()
+								|| selectedNode == model.sequencesNode() || selectedNode == model.tasksNode()))
 				|| ((sourceNode instanceof Path) && (selectedNode == model.pathsNode()))
 				|| ((sourceNode instanceof EventContent) && (selectedNode == model.contentsNode()))
 				|| (sourceNode instanceof Parameter))
