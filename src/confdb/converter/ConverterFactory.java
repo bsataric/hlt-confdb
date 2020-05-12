@@ -107,7 +107,7 @@ public class ConverterFactory {
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		return (ISequenceWriter) getWriter("SequenceWriter");
 	}
-	
+
 	public ITaskWriter getTaskWriter() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		return (ITaskWriter) getWriter("TaskWriter");
 	}
