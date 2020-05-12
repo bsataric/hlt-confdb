@@ -8,7 +8,7 @@ public class ConverterFactory {
 	private String classHeader = "Ascii";
 	private boolean untrackedFlag = false;
 	private String additionalParameter4ConfigurationWriter = null;
-
+	//DUMY COMMENT
 	static public ConverterEngine getConverterEngine(String typeOfConverter)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		return new ConverterFactory(typeOfConverter).getConverterEngine();
