@@ -8,7 +8,7 @@ public class ConverterFactory {
 	private String classHeader = "Ascii";
 	private boolean untrackedFlag = false;
 	private String additionalParameter4ConfigurationWriter = null;
-	//DUMY COMMENT
+
 	static public ConverterEngine getConverterEngine(String typeOfConverter)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		return new ConverterFactory(typeOfConverter).getConverterEngine();
@@ -55,6 +55,7 @@ public class ConverterFactory {
 		converterEngine.setModuleWriter(getModuleWriter());
 		converterEngine.setPathWriter(getPathWriter());
 		converterEngine.setSequenceWriter(getSequenceWriter());
+		converterEngine.setTaskWriter(getTaskWriter());
 		converterEngine.setOutputWriter(getOutputWriter());
 
 		return converterEngine;
@@ -105,6 +106,10 @@ public class ConverterFactory {
 	public ISequenceWriter getSequenceWriter()
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		return (ISequenceWriter) getWriter("SequenceWriter");
+	}
+
+	public ITaskWriter getTaskWriter() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		return (ITaskWriter) getWriter("TaskWriter");
 	}
 
 	public IOutputWriter getOutputWriter()

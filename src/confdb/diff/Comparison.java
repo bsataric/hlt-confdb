@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Philipp Schieferdecker
  *
  *         abstract base class for comparisons between parameters, instances,
- *         paths, sequences, etc.
+ *         paths, sequences, tasks etc.
  */
 abstract public class Comparison {
 	/** constants defining the possible results of the comparison */

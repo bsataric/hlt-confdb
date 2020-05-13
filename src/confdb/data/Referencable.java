@@ -5,8 +5,8 @@ package confdb.data;
  * 
  * @author Philipp Schieferdecker
  *
- *         A Common interace for anything that can be referenced: module
- *         instance, path, sequence.
+ *         A Common interface for anything that can be referenced: module
+ *         instance, path, sequence or task.
  */
 public interface Referencable {
 	/** name of this referencable */
