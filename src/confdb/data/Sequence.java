@@ -3,13 +3,12 @@ package confdb.data;
 import java.util.Iterator;
 
 /**
- * Sequence --------
- * 
+ * Sequence
+ * --------
  * @author Philipp Schieferdecker
  * 
- *         A 'Sequence' can host any number of ModuleReferences,
- *         SequenceReferences or TaskReferences, but no references to other
- *         Paths.
+ * A 'Sequence' can host any number of ModuleReferences and
+ * SequenceReferences, but no references to other Paths.
  */
 public class Sequence extends ReferenceContainer {
 	//

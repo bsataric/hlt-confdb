@@ -7,8 +7,8 @@ import java.awt.event.*;
 import confdb.data.Configuration;
 
 /**
- * SmartRenamingDialog ------------------
- * 
+ * SmartRenamingDialog
+ * ------------------
  * @author Philipp Schieferdecker
  *
  */

@@ -12,12 +12,12 @@ import confdb.data.Directory;
 import confdb.data.ConfigInfo;
 
 /**
- * DirectoryTreeCellEditor -----------------------
- * 
+ * DirectoryTreeCellEditor
+ * -----------------------
  * @author Philipp Schieferdecker
  *
- *         Cell editor for tree view of configurations available in a
- *         configuration database instance.
+ * Cell editor for tree view of configurations available in a
+ * configuration database instance.
  */
 public class DirectoryTreeCellEditor extends DefaultTreeCellEditor {
 	//

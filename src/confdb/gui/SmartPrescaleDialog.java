@@ -13,12 +13,12 @@ import java.util.StringTokenizer;
 import confdb.data.*;
 
 /**
- * SmartPrescaleDialog --------------
- * 
+ * SmartPrescaleDialog
+ * --------------
  * @author Philipp Schieferdecker
  *
- *         Edit the prescale table, which is encoded in the configuration of the
- *         SmartPrescaleService.
+ * Edit the prescale table, which is encoded in the configuration of the
+ * SmartPrescaleService.
  */
 public class SmartPrescaleDialog extends JDialog {
 	//

@@ -12,13 +12,13 @@ import java.util.Iterator;
 import confdb.data.*;
 
 /**
- * SearchAndReplaceDialog ----------------------
- * 
+ * SearchAndReplaceDialog
+ * ----------------------
  * @author Philipp Schieferdecker
  *
- *         Allows the user to specify a plugin, one of its parameters, and the
- *         desired new value. 'Search' will produce a list of matches; 'Replace'
- *         will apply the new value.
+ * Allows the user to specify a plugin, one of its parameters, and the
+ * desired new value. 'Search' will produce a list of matches; 'Replace'
+ * will apply the new value.
  */
 public class SearchAndReplaceDialog extends JDialog {
 	//

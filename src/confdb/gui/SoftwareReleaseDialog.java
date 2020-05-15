@@ -7,12 +7,12 @@ import java.awt.event.*;
 import confdb.data.SoftwareRelease;
 
 /**
- * SoftwareReleaseDialog ---------------------
- * 
+ * SoftwareReleaseDialog
+ * ---------------------
  * @author Philipp Schieferdecker
  *
- *         display the current release: subsystems, packages, templates, and
- *         instance counts for the current configuration.
+ * display the current release: subsystems, packages, templates, and
+ * instance counts for the current configuration.
  */
 public class SoftwareReleaseDialog extends JDialog {
 	//

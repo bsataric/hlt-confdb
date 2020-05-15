@@ -7,12 +7,12 @@ import java.io.InputStream;
 import java.io.IOException;
 
 /**
- * ConfDBSetups ------------
- * 
+ * ConfDBSetups
+ * ------------
  * @author Philipp Schieferdecker
  *
- *         Repository of standard database connections, initialized by a text
- *         file (default: /conf/confdb.properties).
+ * Repository of standard database connections, initialized by a text
+ * file (default: /conf/confdb.properties).
  */
 public class ConfDBSetups {
 	//

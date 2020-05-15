@@ -7,8 +7,8 @@ import java.awt.event.*;
 import confdb.parser.JPythonParser;
 
 /**
- * ParserProblemsDialog --------------------
- * 
+ * ParserProblemsDialog
+ * --------------------
  * @author Philipp Schieferdecker
  *
  */

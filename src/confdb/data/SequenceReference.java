@@ -1,11 +1,11 @@
 package confdb.data;
 
 /**
- * SequenceReference -----------------
- * 
+ * SequenceReference
+ * -----------------
  * @author Philipp Schieferdecker
  *
- *         Reference of a Sequence within another sequence or path.
+ * Reference of a Sequence within another sequence or path.
  */
 public class SequenceReference extends Reference {
 	//

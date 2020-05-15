@@ -17,11 +17,11 @@ import confdb.data.*;
 import confdb.db.*;
 
 /**
- * PickConfigurationDialog -----------------------
- * 
+ * PickConfigurationDialog
+ * -----------------------
  * @author Philipp Schieferdecker
  *
- *         Pick a configuration, e.g. to open, import, etc.
+ * Pick a configuration, e.g. to open, import, etc.
  */
 public class PickConfigurationDialog extends JDialog {
 	//

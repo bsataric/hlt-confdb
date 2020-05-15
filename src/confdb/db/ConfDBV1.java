@@ -28,11 +28,11 @@ import java.math.BigInteger;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
- * ConfDBV1 --------
- * 
+ * ConfDBV1
+ * --------
  * @author Philipp Schieferdecker
  *
- *         Handle all database access operations.
+ * Handle all database access operations.
  */
 public class ConfDBV1 {
 	//

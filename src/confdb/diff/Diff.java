@@ -10,12 +10,12 @@ import confdb.data.*;
 import confdb.db.*;
 
 /**
- * Diff ----
- * 
+ * Diff
+ * ----
  * @author Philipp Schieferdecker
  *
- *         Determine differences between different components, typically but not
- *         necessarily in different configurations (or versions).
+ * Determine differences between different components, typically but not
+ * necessarily in different configurations (or versions).
  */
 public class Diff {
 	//

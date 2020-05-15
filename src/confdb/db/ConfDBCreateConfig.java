@@ -11,11 +11,11 @@ import java.io.*;
 import confdb.data.*;
 
 /**
- * ConfDBCreateConfig ------------------
- * 
+ * ConfDBCreateConfig
+ * ------------------
  * @author Philipp Schieferdecker
  *
- *         Create a new configuration in ConfDB based on an existing one.
+ * Create a new configuration in ConfDB based on an existing one.
  */
 public class ConfDBCreateConfig {
 	//

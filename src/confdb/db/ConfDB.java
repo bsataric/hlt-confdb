@@ -31,11 +31,11 @@ import java.math.BigInteger;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
- * ConfDB ------
- * 
+ * ConfDB
+ * ------
  * @author Philipp Schieferdecker
  *
- *         Handle all database access operations.
+ * Handle all database access operations.
  */
 public class ConfDB {
 	//
@@ -426,7 +426,6 @@ public class ConfDB {
 	private PreparedStatement psCheckOperatorForModuleSequenceAssoc = null;
 	private PreparedStatement psCheckOperatorForModuleTaskAssoc = null;
 
-	// BSATARIC TASKS
 	private PreparedStatement psInsertTaskPaeType = null;
 	private PreparedStatement psGetPaeTypes = null;
 	private PreparedStatement psGetPaeColumnNumber = null;
@@ -1235,8 +1234,7 @@ public class ConfDB {
 			psSelectInstances.setInt(10, configId);
 			psSelectInstances.setInt(11, configId); // Tasks
 			psSelectInstances.setInt(12, configId); // Tasks
-			rsInstances = psSelectInstances.executeQuery(); // BSATARIC: get all instances for the same config
-															// (sequences too)
+			rsInstances = psSelectInstances.executeQuery();
 
 			/*
 			 * if (pera) return;

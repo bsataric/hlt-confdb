@@ -4,14 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * DatabaseInfoPanel -----------------
- * 
+ * DatabaseInfoPanel
+ * -----------------
  * @author Philipp Schieferdecker
  *
- *         display the relevant information about the connection to the
- *         database.
+ * display the relevant information about the connection to the
+ * database.
  *
  */
+
 
 public class DatabaseInfoPanel extends JPanel {
 	//

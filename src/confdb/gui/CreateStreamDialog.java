@@ -11,12 +11,13 @@ import confdb.data.Stream;
 import confdb.data.Configuration;
 
 /**
- * CreateStreamDialog ------------------
+ * CreateStreamDialog
+ * ------------------
  * 
  * @author Philipp Schieferdecker
  *
- *         Let the user create a new stream and either link it an existing
- *         content or create a new one.
+ * Let the user create a new stream and either link it an existing
+ * content or create a new one.
  */
 public class CreateStreamDialog extends JDialog {
 	//

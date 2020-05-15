@@ -55,13 +55,13 @@ import confdb.data.*;
 import confdb.diff.*;
 
 /**
- * ConfDbGUI ---------
- * 
+ * ConfDbGUI
+ * ---------
  * @author Philipp Schieferdecker
  *
- *         Graphical User Interface to create and manipulate CMSSW job
- *         configurations stored in the relational configuration database,
- *         ConfDB.
+ * Graphical User Interface to create and manipulate CMSSW job
+ * configurations stored in the relational configuration database,
+ * ConfDB.
  */
 public class ConfDbGUI {
 	//

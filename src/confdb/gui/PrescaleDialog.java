@@ -18,12 +18,12 @@ import java.util.regex.*;
 import confdb.data.*;
 
 /**
- * PrescaleDialog --------------
- * 
+ * PrescaleDialog
+ * --------------
  * @author Philipp Schieferdecker
  *
- *         Edit the prescale table, which is encoded in the configuration of the
- *         PrescaleService.
+ * Edit the prescale table, which is encoded in the configuration of the
+ * PrescaleService.
  */
 public class PrescaleDialog extends JDialog {
 	//

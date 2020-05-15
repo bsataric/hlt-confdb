@@ -12,11 +12,11 @@ import confdb.gui.tree.AbstractTreeModel;
 import confdb.diff.*;
 
 /**
- * DiffTreeModel -------------
- * 
+ * DiffTreeModel
+ * -------------
  * @author Philipp Schieferdecker
  *
- *         Visualize the result of the comparions of two configurations.
+ * Visualize the result of the comparisons of two configurations.
  */
 public class DiffTreeModel extends AbstractTreeModel {
 	//

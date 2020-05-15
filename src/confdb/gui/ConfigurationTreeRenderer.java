@@ -7,12 +7,12 @@ import java.awt.*;
 import confdb.data.*;
 
 /**
- * ConfigurationTreeRenderer -------------------------
- * 
+ * ConfigurationTreeRenderer
+ * -------------------------
  * @author Philipp Schieferdecker
  *
- *         Define how each node in the configuration tree view is being
- *         displayed.
+ * Define how each node in the configuration tree view is being
+ * displayed.
  */
 @SuppressWarnings("serial")
 public class ConfigurationTreeRenderer extends DefaultTreeCellRenderer {

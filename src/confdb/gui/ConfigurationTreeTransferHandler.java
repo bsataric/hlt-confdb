@@ -11,22 +11,21 @@ import javax.swing.tree.*;
 import confdb.data.*;
 
 /**
- * ConfigurationTreeTransferHandler --------------------------------
- * 
+ * ConfigurationTreeTransferHandler
+ * --------------------------------
  * @author Philipp Schieferdecker
  *
- *         <p>
- *         Transfer handler implementation that supports to move a selected tree
- *         node within a <code>JTree</code>.
- *         </p>
+ * <p>Transfer handler implementation that supports to move a selected
+ * tree node within a <code>JTree</code>.</p>
  * 
  * @author Ulrich Hilger
  * @author Light Development
  * @author <a href="http://www.lightdev.com">http://www.lightdev.com</a>
  * @author <a href="mailto:info@lightdev.com">info@lightdev.com</a>
- * @author published under the terms and conditions of the GNU General Public
- *         License, for details see file gpl.txt in the distribution package of
- *         this software
+ * @author published under the terms and conditions of the
+ *      GNU General Public License,
+ *      for details see file gpl.txt in the distribution
+ *      package of this software
  *
  * @version 1, 03.08.2005
  */

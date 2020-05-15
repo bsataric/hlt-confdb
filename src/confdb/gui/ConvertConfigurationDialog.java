@@ -16,8 +16,8 @@ import java.io.File;
 import confdb.data.*;
 
 /**
- * ConvertConfigurationDialog ------------------------
- * 
+ * ConvertConfigurationDialog 
+ * ------------------------
  * @author Philipp Schieferdecker
  *
  */

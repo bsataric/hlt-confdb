@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * ToolBar -------
- * 
+ * ToolBar
+ * -------
  * @author Philipp Schieferdecker
  */
 public class ToolBar {

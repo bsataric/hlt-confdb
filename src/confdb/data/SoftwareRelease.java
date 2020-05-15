@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * SoftwareRelease ---------------
- * 
+ * SoftwareRelease
+ * ---------------
  * @author Philipp Schieferdecker
  *
- *         Manage software component templates for a release. Templates are
- *         organized in software packages which are organized in software
- *         subsystems.
+ * Manage software component templates for a release. Templates are
+ * organized in software packages which are organized in software
+ * subsystems.
  */
 public class SoftwareRelease implements Serializable {
 	//

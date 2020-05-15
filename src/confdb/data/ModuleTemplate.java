@@ -3,11 +3,11 @@ package confdb.data;
 import java.util.ArrayList;
 
 /**
- * Module ------
- * 
+ * Module
+ * ------
  * @author Philipp Schieferdecker
  *
- *         CMSSW framework module.
+ * CMSSW framework module.
  */
 public class ModuleTemplate extends Template {
 	//

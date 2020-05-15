@@ -6,12 +6,12 @@ import java.util.Iterator;
 import confdb.data.*;
 
 /**
- * ReleaseMigrator ----------------
- * 
+ * ReleaseMigrator
+ * ----------------
  * @author Philipp Schieferdecker
  *
- *         Migrate a configuration from its current database to another
- *         database.
+ * Migrate a configuration from its current database to another
+ * database.
  */
 public class ReleaseMigrator {
 	//

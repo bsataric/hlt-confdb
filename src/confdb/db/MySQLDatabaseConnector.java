@@ -9,11 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * MySQLDatabaseConnector ----------------------
- * 
+ * MySQLDatabaseConnector
+ * ----------------------
  * @author Philipp Schieferdecker
  *
- *         MySQL specific implementation of DatabaseConnector.
+ * MySQL specific implementation of DatabaseConnector.
  */
 public class MySQLDatabaseConnector extends DatabaseConnector {
 	//

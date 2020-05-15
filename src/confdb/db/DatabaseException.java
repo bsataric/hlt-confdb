@@ -1,11 +1,11 @@
 package confdb.db;
 
 /**
- * DatabaseException -----------------
- * 
+ * DatabaseException
+ * -----------------
  * @author Philipp Schieferdecker
  *
- *         Exception signature of the confdb.db. package.
+ * Exception signature of the confdb.db. package.
  */
 public class DatabaseException extends Exception {
 	//

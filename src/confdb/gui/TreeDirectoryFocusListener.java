@@ -19,14 +19,14 @@ import confdb.db.ConfDB;
 import confdb.db.DatabaseException;
 
 /**
- * @author raul.jimenez.estupinan@cern.ch bug: Bug77084 The main purpose of this
- *         file is to provide focus features to GUI by adding a focus listener.
- *         E.g. Focus listener allows the Directory Tree to save the current
- *         edit by clicking elsewhere instead of having to press Enter. This
- *         feature does not come as part of the default JTree implementation. It
- *         is a special customization in order to create some particular
- *         functionalities. When the tree gains focus, if the node is being
- *         edited, then save the node rename.
+ * @author raul.jimenez.estupinan@cern.ch
+ * bug: Bug77084
+ * The main purpose of this file is to provide focus features to GUI by adding a focus listener.
+ * E.g. Focus listener allows the Directory Tree to save the current edit by clicking elsewhere
+ * instead of having to press Enter.
+ * This feature does not come as part of the default JTree implementation.
+ * It is a special customization in order to create some particular functionalities. 
+ * When the tree gains focus, if the node is being edited, then save the node rename.
  * 
  */
 public class TreeDirectoryFocusListener implements FocusListener {

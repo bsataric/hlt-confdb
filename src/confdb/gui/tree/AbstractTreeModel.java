@@ -5,11 +5,11 @@ import javax.swing.tree.*;
 import javax.swing.event.*;
 
 /**
- * AbstractTreeModel -----------------
- * 
+ * AbstractTreeModel
+ * -----------------
  * @author Philipp Schieferdecker
  *
- *         Abstract base class for any custom tree model.
+ * Abstract base class for any custom tree model.
  */
 public abstract class AbstractTreeModel implements TreeModel {
 	//

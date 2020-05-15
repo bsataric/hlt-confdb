@@ -7,11 +7,11 @@ import confdb.data.ConfigInfo;
 import confdb.data.ConfigVersion;
 
 /**
- * ConfigVersionTableModel -----------------------
- * 
+ * ConfigVersionTableModel
+ * -----------------------
  * @author Philipp Schieferdecker
  *
- *         Display all available versions for a selected configuration.
+ * Display all available versions for a selected configuration.
  */
 public class ConfigVersionTableModel extends AbstractTableModel {
 	//

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Reference ---------
- * 
+ * Reference
+ * ---------
  * @author Philipp Schieferdecker
  *
- *         Reference base class.
+ * Reference base class.
  */
 public class Reference implements Serializable {
 	//

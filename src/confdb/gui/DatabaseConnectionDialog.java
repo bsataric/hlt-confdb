@@ -14,11 +14,11 @@ import java.io.IOException;
 import confdb.db.ConfDBSetups;
 
 /**
- * DatabaseConnectionDialog ------------------------
- * 
+ * DatabaseConnectionDialog
+ * ------------------------
  * @author Philipp Schieferdecker
  *
- *         prompt the user for the parameters to connect to the database.
+ * prompt the user for the parameters to connect to the database.
  *
  */
 

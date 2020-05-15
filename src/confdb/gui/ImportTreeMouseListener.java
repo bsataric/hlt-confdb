@@ -7,8 +7,8 @@ import java.awt.event.*;
 import confdb.data.*;
 
 /**
- * ImportTreeMouseListener -----------------------
- * 
+ * ImportTreeMouseListener
+ * -----------------------
  * @author Philipp Schieferdecker
  *
  */

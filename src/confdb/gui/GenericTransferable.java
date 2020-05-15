@@ -8,20 +8,20 @@ import java.io.IOException;
 /**
  * GenericTransferable.java
  * 
- * <p>
- * This transferable takes an object as data that is to be transferred. It uses
- * DataFlavor.stringFlavor, which is supported by all objects. This transferable
- * can be used in cases where a special handling in terms of which data flavors
- * are acceptable or which data is transported do not matter.
- * </p>
+ * <p>This transferable takes an object as data that is to be
+ * transferred. It uses DataFlavor.stringFlavor, which is supported by
+ * all objects. This transferable can be used in cases where a special
+ * handling in terms of which data flavors are acceptable or which
+ * data is transported do not matter.</p>
  * 
  * @author Ulrich Hilger
  * @author Light Development
  * @author <a href="http://www.lightdev.com">http://www.lightdev.com</a>
  * @author <a href="mailto:info@lightdev.com">info@lightdev.com</a>
- * @author published under the terms and conditions of the GNU General Public
- *         License, for details see file gpl.txt in the distribution package of
- *         this software
+ * @author published under the terms and conditions of the
+ *      GNU General Public License,
+ *      for details see file gpl.txt in the distribution
+ *      package of this software
  *
  * @version 1, 30.07.2005
  */

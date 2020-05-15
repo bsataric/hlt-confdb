@@ -6,8 +6,8 @@ import confdb.data.Sequence;
 import confdb.data.Task;
 
 /**
- * ContainerComparison -------------------
- * 
+ * ContainerComparison
+ * -------------------
  * @author Philipp Schieferdecker
  *
  */

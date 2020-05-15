@@ -1,11 +1,11 @@
 package confdb.data;
 
 /**
- * ModuleReference ---------------
- * 
+ * ModuleReference
+ * ---------------
  * @author Philipp Schieferdecker
  *
- *         CMSSW framework module reference.
+ * CMSSW framework module reference.
  */
 public class ModuleReference extends Reference {
 	//

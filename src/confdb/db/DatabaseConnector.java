@@ -5,12 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * DatabaseConnector -----------------
- * 
+ * DatabaseConnector
+ * -----------------
  * @author Philipp Schieferdecker
  * 
- *         handle the low-level details of any database access, leave the DBMS
- *         related details to the respective implementations of this class.
+ * handle the low-level details of any database access, leave the DBMS
+ * related details to the respective implementations of this class.
  */
 
 abstract public class DatabaseConnector implements IDatabaseConnector {

@@ -16,8 +16,8 @@ import confdb.db.ConfDB;
 import confdb.db.DatabaseException;
 
 /**
- * SaveConfigurationDialog -----------------------
- * 
+ * SaveConfigurationDialog
+ * -----------------------
  * @author Philipp Schieferdecker
  *
  */

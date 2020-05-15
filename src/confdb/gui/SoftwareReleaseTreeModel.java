@@ -11,11 +11,11 @@ import confdb.gui.tree.AbstractTreeModel;
 import confdb.data.*;
 
 /**
- * SoftwareReleaseTreeModel ------------------------
- * 
+ * SoftwareReleaseTreeModel
+ * ------------------------
  * @author Philipp Schieferdecker
  *
- *         Display a software release in a JTree structure.
+ * Display a software release in a JTree structure.
  */
 public class SoftwareReleaseTreeModel extends AbstractTreeModel {
 	//

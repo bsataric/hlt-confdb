@@ -11,8 +11,8 @@ import java.util.EventObject;
 import confdb.data.*;
 
 /**
- * ConfigurationTreeEditor ----------------------
- * 
+ * ConfigurationTreeEditor
+ * ----------------------
  * @author Philipp Schieferdecker
  *
  */

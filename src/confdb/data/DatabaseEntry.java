@@ -3,14 +3,14 @@ package confdb.data;
 import java.io.Serializable;
 
 /**
- * DatabaseEntry --------------
- * 
+ * DatabaseEntry
+ * --------------
  * @author Philipp Schieferdecker
  *
- *         Class to keep track of the status of a component in the database:
- *         cache the primary key for objects which are already in the DB and
- *         have not changed, indicate those object which are either not yet in
- *         the DB or have changed (and therefore need to have a new copy saved.
+ * Class to keep track of the status of a component in the database:
+ * cache the primary key for objects which are already in the DB and
+ * have not changed, indicate those object which are either not yet in
+ * the DB or have changed (and therefore need to have a new copy saved.
  */
 public class DatabaseEntry implements Serializable {
 	//

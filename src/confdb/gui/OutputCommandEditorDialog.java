@@ -17,12 +17,12 @@ import confdb.data.ModuleInstance;
 import confdb.data.OutputCommand;
 
 /**
- * OutputCommandEditorDialog -------------------------
- * 
+ * OutputCommandEditorDialog
+ * -------------------------
  * @author Philipp Schieferdecker
  *
- *         Edit output commands (drop/keep statements) of format
- *         <classname>_<modulename>_<extraname>_<processname>.
+ * Edit output commands (drop/keep statements) of format
+ * <classname>_<modulename>_<extraname>_<processname>.
  */
 public class OutputCommandEditorDialog extends JDialog {
 	//

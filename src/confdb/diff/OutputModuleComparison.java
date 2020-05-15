@@ -3,8 +3,8 @@ package confdb.diff;
 import confdb.data.OutputModule;
 
 /**
- * OutputModuleComparison ------------------
- * 
+ * OutputModuleComparison
+ * ------------------
  * @author Philipp Schieferdecker
  *
  */

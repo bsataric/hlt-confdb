@@ -10,8 +10,8 @@ import confdb.db.DatabaseException;
 import java.io.File;
 
 /**
- * JParseConfigurationDialog ------------------------
- * 
+ * JParseConfigurationDialog
+ * ------------------------
  * @author Philipp Schieferdecker
  *
  */

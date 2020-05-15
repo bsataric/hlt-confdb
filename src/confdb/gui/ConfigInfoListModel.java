@@ -12,11 +12,11 @@ import confdb.data.Directory;
 import confdb.data.ConfigInfo;
 
 /**
- * ConfigInfoListModel -------------------
- * 
+ * ConfigInfoListModel
+ * -------------------
  * @author Philipp Schieferdecker
  *
- *         Display list of configurations, seeded by a Directory.
+ * Display list of configurations, seeded by a Directory.
  */
 public class ConfigInfoListModel extends AbstractListModel {
 	//

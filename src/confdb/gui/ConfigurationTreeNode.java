@@ -1,12 +1,12 @@
 package confdb.gui;
 
 /**
- * ConfigurationTreeNode ---------------------
- * 
+ * ConfigurationTreeNode
+ * ---------------------
  * @author Philipp Schieferdecker
  *
- *         Simple structure containing the object and its parent within a
- *         (Configuration) tree.
+ * Simple structure containing the object and its parent within a
+ * (Configuration) tree.
  */
 public class ConfigurationTreeNode {
 	//

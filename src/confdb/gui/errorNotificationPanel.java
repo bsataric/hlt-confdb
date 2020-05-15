@@ -24,9 +24,9 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
 /**
- * errorNotificationPanel Extends JPanel class to present error details.
+ * errorNotificationPanel
+ * Extends JPanel class to present error details.
  * ------------------------
- * 
  * @author Raul Jimenez Estupinan
  *
  */

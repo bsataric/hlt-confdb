@@ -4,12 +4,12 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 /**
- * Comparison ----------
- * 
+ * Comparison
+ * ----------
  * @author Philipp Schieferdecker
  *
- *         abstract base class for comparisons between parameters, instances,
- *         paths, sequences, tasks etc.
+ * abstract base class for comparisons between parameters, instances,
+ * paths, sequences, etc.
  */
 abstract public class Comparison {
 	/** constants defining the possible results of the comparison */

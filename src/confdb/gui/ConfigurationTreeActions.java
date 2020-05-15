@@ -16,12 +16,12 @@ import confdb.diff.Diff;
 import confdb.data.*;
 
 /**
- * ConfigurationTreeActions ------------------------
- * 
+ * ConfigurationTreeActions
+ * ------------------------
  * @author Philipp Schieferdecker
  *
- *         Repository of actions which change the configuration data model and
- *         at the same time need to be visually represented in the JTree.
+ * Repository of actions which change the configuration data model and
+ * at the same time need to be visually represented in the JTree.
  */
 public class ConfigurationTreeActions {
 

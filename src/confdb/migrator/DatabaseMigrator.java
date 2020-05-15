@@ -6,12 +6,12 @@ import confdb.db.ConfDB;
 import confdb.db.DatabaseException;
 
 /**
- * DatabaseMigrator ----------------
- * 
+ * DatabaseMigrator
+ * ----------------
  * @author Philipp Schieferdecker
  *
- *         Migrate a configuration from its current database to another
- *         database.
+ * Migrate a configuration from its current database to another
+ * database.
  */
 public class DatabaseMigrator {
 	//

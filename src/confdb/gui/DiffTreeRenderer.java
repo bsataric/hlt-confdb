@@ -8,8 +8,8 @@ import confdb.diff.*;
 import confdb.data.*;
 
 /**
- * DiffTreeRenderer ----------------
- * 
+ * DiffTreeRenderer
+ * ----------------
  * @author Philipp Schieferdecker
  *
  */

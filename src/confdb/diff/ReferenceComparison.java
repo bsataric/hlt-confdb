@@ -3,8 +3,8 @@ package confdb.diff;
 import confdb.data.Reference;
 
 /**
- * ReferenceComparison ------------------
- * 
+ * ReferenceComparison
+ * ------------------
  * @author Philipp Schieferdecker
  *
  */

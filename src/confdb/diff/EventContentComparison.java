@@ -7,8 +7,8 @@ import confdb.data.Sequence;
 import confdb.data.Task;
 
 /**
- * EventContentComparison ----------------
- * 
+ * EventContentComparison
+ * ----------------
  * @author Philipp Schieferdecker
  *
  */

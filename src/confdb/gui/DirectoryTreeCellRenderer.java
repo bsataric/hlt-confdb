@@ -8,12 +8,12 @@ import java.awt.*;
 import confdb.data.ConfigInfo;
 
 /**
- * DirectoryTreeCellRenderer -------------------------
- * 
+ * DirectoryTreeCellRenderer
+ * -------------------------
  * @author Philipp Schieferdecker
  *
- *         Cell renderer for tree view of configurations available in a
- *         configuration database instance.
+ * Cell renderer for tree view of configurations available in a
+ * configuration database instance.
  */
 public class DirectoryTreeCellRenderer extends DefaultTreeCellRenderer {
 	//

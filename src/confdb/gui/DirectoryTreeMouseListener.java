@@ -14,11 +14,11 @@ import confdb.db.ConfDB;
 import confdb.db.DatabaseException;
 
 /**
- * DirectoryTreeMouseListener --------------------------
- * 
+ * DirectoryTreeMouseListener
+ * --------------------------
  * @author Philipp Schieferdecker
  *
- *         Show a popup menu if a directory is choosen per rigth-click.
+ * Show a popup menu if a directory is chosen per right-click.
  */
 public class DirectoryTreeMouseListener extends MouseAdapter implements ActionListener, TreeModelListener {
 	//

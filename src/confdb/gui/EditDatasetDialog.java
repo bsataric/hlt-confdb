@@ -17,11 +17,11 @@ import confdb.data.PrimaryDataset;
 import confdb.data.Path;
 
 /**
- * EditDatasetDialog -----------------
- * 
+ * EditDatasetDialog
+ * -----------------
  * @author Philipp Schieferdecker
  *
- *         Edit which paths are part of a particular primary dataset.
+ * Edit which paths are part of a particular primary dataset.
  */
 public class EditDatasetDialog extends JDialog {
 	//

@@ -21,13 +21,13 @@ import javax.swing.SwingWorker;
 import javax.swing.SwingWorker.StateValue;
 
 /**
- * WorkerProgressBar ------------------------
- * 
+ * WorkerProgressBar
+ * ------------------------
  * @author Raul Jimenez Estupinan
  *
- *         Displays a progress bar windows for long task. Only accepts
- *         SwingWorker<String,String> processes using the Swing Worker library:
- *         import javax.swing.SwingWorker;
+ * Displays a progress bar windows for long task. Only accepts
+ * SwingWorker<String,String> processes using the Swing Worker library:
+ * import javax.swing.SwingWorker;
  */
 
 @SuppressWarnings("serial")

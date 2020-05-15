@@ -5,12 +5,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * IDatabaseConnector ------------------
- * 
+ * IDatabaseConnector
+ * ------------------
  * @author Philipp Schieferdecker
  * 
- *         Interface for all classes accessing a database. Different DBMS reqire
- *         dedicated implementations (MySQL, Oracle, etc.).
+ * Interface for all classes accessing a database. Different DBMS require
+ * dedicated implementations (MySQL, Oracle, etc.).
  */
 public interface IDatabaseConnector {
 	/** open connection to databse */

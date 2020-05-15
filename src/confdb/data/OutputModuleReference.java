@@ -1,12 +1,12 @@
 package confdb.data;
 
 /**
- * OutputModuleReference ---------------------
- * 
+ * OutputModuleReference
+ * ---------------------
  * @author Philipp Schieferdecker
  *
- *         Reference to an OutputModule, as it appears in reference containers
- *         like sequences and paths.
+ * Reference to an OutputModule, as it appears in reference containers
+ * like sequences and paths.
  */
 public class OutputModuleReference extends Reference {
 	//

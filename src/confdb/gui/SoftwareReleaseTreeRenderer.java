@@ -7,11 +7,11 @@ import java.awt.*;
 import confdb.data.*;
 
 /**
- * SoftwareReleaseTreeRenderer ---------------------------
- * 
+ * SoftwareReleaseTreeRenderer
+ * ---------------------------
  * @author Philipp Schieferdecker
  *
- *         Render icon and text of a software release tree-node.
+ * Render icon and text of a software release tree-node.
  */
 public class SoftwareReleaseTreeRenderer extends DefaultTreeCellRenderer {
 	//

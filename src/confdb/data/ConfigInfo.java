@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * ConfigInfo ----------
- * 
+ * ConfigInfo
+ * ----------
  * @author Philipp Schieferdecker
  *
- *         Information about a configuration.
+ * Information about a configuration.
  */
 public class ConfigInfo implements Comparable<ConfigInfo>, Serializable {
 	//

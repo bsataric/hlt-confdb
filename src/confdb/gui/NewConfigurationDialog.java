@@ -9,12 +9,12 @@ import confdb.db.ConfDB;
 import confdb.db.DatabaseException;
 
 /**
- * NewConfigurationDialog ----------------------
- * 
+ * NewConfigurationDialog
+ * ----------------------
  * @author Philipp Schieferdecker
  *
- *         Enter the name of a configuration and associate it with a release
- *         tag.
+ * Enter the name of a configuration and associate it with a release
+ * tag.
  */
 public class NewConfigurationDialog extends JDialog implements ActionListener, PropertyChangeListener {
 	//

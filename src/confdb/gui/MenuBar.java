@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * MenuBar -------
- * 
+ * MenuBar
+ * -------
  * @author Philipp Schieferdecker
  */
 public class MenuBar {

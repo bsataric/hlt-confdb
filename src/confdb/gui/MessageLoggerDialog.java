@@ -16,11 +16,11 @@ import confdb.gui.treetable.CheckBoxTableCellRenderer;
 import confdb.data.*;
 
 /**
- * MessageLoggerDialog ------------------
- * 
+ * MessageLoggerDialog
+ * ------------------
  * @author Vasundhar Chetluru
  *
- *         Editor to helps customize Message Logger
+ * Editor to helps customize Message Logger
  * 
  */
 public class MessageLoggerDialog extends JDialog {

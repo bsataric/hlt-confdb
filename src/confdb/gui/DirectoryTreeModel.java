@@ -11,11 +11,11 @@ import confdb.data.ConfigInfo;
 import confdb.data.ConfigVersion;
 
 /**
- * DirectoryTreeModel ------------------
- * 
+ * DirectoryTreeModel
+ * ------------------
  * @author Philipp Schieferdecker
  *
- *         Display the directory tree of the configuration database.
+ * Display the directory tree of the configuration database.
  */
 public class DirectoryTreeModel extends AbstractTreeModel {
 	//

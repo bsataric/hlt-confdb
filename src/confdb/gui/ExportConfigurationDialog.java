@@ -20,8 +20,8 @@ import confdb.db.ConfDBSetups;
 import confdb.db.DatabaseException;
 
 /**
- * ExportConfigurationDialog -------------------------
- * 
+ * ExportConfigurationDialog
+ * -------------------------
  * @author Philipp Schieferdecker
  *
  */

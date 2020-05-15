@@ -13,12 +13,12 @@ import confdb.diff.*;
 import confdb.db.*;
 
 /**
- * DiffDialog ----------
- * 
+ * DiffDialog
+ * ----------
  * @author Philipp Schieferdecker
  *
- *         Show the difference between two configurations in the current ConfDB
- *         instance.
+ * Show the difference between two configurations in the current ConfDB
+ * instance.
  */
 public class DiffDialog extends JDialog {
 	//

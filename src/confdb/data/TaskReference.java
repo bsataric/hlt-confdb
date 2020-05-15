@@ -1,11 +1,11 @@
 package confdb.data;
 
 /**
- * TaskReference -----------------
- * 
+ * TaskReference 
+ * -----------------
  * @author Bogdan Sataric
  *
- *         Reference of a Task within another Task or path.
+ * Reference of a Task within another Task or path.
  */
 public class TaskReference extends Reference {
 	//

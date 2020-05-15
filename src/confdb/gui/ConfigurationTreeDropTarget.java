@@ -12,23 +12,22 @@ import javax.swing.tree.*;
 import confdb.data.*;
 
 /**
- * ConfigurationTreeDropTarget ---------------------------
- * 
+ * ConfigurationTreeDropTarget
+ * ---------------------------
  * @author Philipp Schieferdecker
  *
- *         <p>
- *         A drop target for class <code>JTree</code> that implements
- *         autoscrolling, automatic tree node expansion and a custom drag image
- *         during the drag part of a drag and drop operation.
- *         </p>
+ * <p>A drop target for class <code>JTree</code> that implements
+ * autoscrolling, automatic tree node expansion and a custom drag
+ * image during the drag part of a drag and drop operation.</p>
  * 
  * @author Ulrich Hilger
  * @author Light Development
  * @author <a href="http://www.lightdev.com">http://www.lightdev.com</a>
  * @author <a href="mailto:info@lightdev.com">info@lightdev.com</a>
- * @author published under the terms and conditions of the GNU General Public
- *         License, for details see file in the distribution package of this
- *         software
+ * @author published under the terms and conditions of the
+ *      GNU General Public License,
+ *      for details see file  in the distribution
+ *      package of this software
  *
  * @version 1, 03.08.2005
  */

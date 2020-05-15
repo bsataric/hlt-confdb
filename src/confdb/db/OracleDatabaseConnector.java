@@ -11,11 +11,11 @@ import oracle.jdbc.pool.*;
 import java.util.ArrayList;
 
 /**
- * OracleDatabaseConnector -----------------------
- * 
+ * OracleDatabaseConnector
+ * -----------------------
  * @author Philipp Schieferdecker
  *
- *         Oracle specific implementation of DatabaseConnector.
+ * Oracle specific implementation of DatabaseConnector.
  */
 public class OracleDatabaseConnector extends DatabaseConnector {
 	//

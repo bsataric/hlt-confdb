@@ -4,16 +4,16 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 /**
- * OutputModule ------------
- * 
+ * OutputModule
+ * ------------
  * @author Philipp Schieferdecker
  *
- *         Explicit model for OutputModules, which are not -- like
- *         ModuleInstances -- bound to a ModuleTemplate and don't have an
- *         arbitrary list of parameters. OutputModules are linked to a stream
- *         instead, and the values of their two parameters SelectEvents and
- *         outputCommands are directly derived from teh associated Stream and
- *         its parent EventContent.
+ * Explicit model for OutputModules, which are not -- like
+ * ModuleInstances -- bound to a ModuleTemplate and don't have an
+ * arbitrary list of parameters. OutputModules are linked to a stream
+ * instead, and the values of their two parameters SelectEvents and
+ * outputCommands are directly derived from the associated Stream and
+ * its parent EventContent.
  */
 public class OutputModule extends ParameterContainer implements Referencable {
 	//

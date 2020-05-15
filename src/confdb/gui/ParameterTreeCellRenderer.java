@@ -9,11 +9,11 @@ import confdb.data.PSetParameter;
 import confdb.data.VPSetParameter;
 
 /**
- * ParameterTreeCellRenderer -------------------------
- * 
+ * ParameterTreeCellRenderer
+ * -------------------------
  * @author Philipp Schieferdecker
  *
- *         To display the appropriate icons in a TreeTable showing parameters.
+ * To display the appropriate icons in a TreeTable showing parameters.
  */
 public class ParameterTreeCellRenderer extends DefaultTreeCellRenderer {
 	//

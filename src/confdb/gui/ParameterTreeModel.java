@@ -22,11 +22,11 @@ import confdb.data.IConfiguration;
 import confdb.data.*;
 
 /**
- * ParameterTreeModel ------------------
- * 
+ * ParameterTreeModel
+ * ------------------
  * @author Philipp Schieferdecker
  *
- *         TreeModel (TreeTableTreeModel) do display a set of parameters.
+ * TreeModel (TreeTableTreeModel) do display a set of parameters.
  */
 public class ParameterTreeModel extends AbstractTreeTableTreeModel {
 	//

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Path ----
- * 
+ * Path
+ * ----
  * @author Philipp Schieferdecker
  *
- *         CMSSW framework path.
+ * CMSSW framework path.
  */
 public class Path extends ReferenceContainer {
 	//
