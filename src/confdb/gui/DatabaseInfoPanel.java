@@ -13,6 +13,7 @@ import java.awt.*;
  *
  */
 
+
 public class DatabaseInfoPanel extends JPanel {
 	//
 	// member data
