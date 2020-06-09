@@ -73,7 +73,7 @@ abstract public class ParameterContainer extends DatabaseEntry {
 		return parameters.iterator();
 	}
 
-	/** check wether this container contains a given parameter */
+	/** check weather this container contains a given parameter */
 	public boolean containsParameter(Parameter p) {
 		return parameters.contains(p);
 	}
