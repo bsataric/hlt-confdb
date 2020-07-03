@@ -2815,7 +2815,7 @@ public class ConfDbGUI {
 			jSplitPaneRightUpper.setDividerLocation(-1);
 			jSplitPaneRightUpper.setDividerSize(8);
 
-			if (container instanceof Instance) {
+			if (container instanceof Instance && !(container instanceof EDAliasInstance)) {
 				Instance i = (Instance) container;
 				String subName = i.template().parentPackage().subsystem().name();
 				String pkgName = i.template().parentPackage().name();
@@ -3019,6 +3019,8 @@ public class ConfDbGUI {
 
 			ModuleInstance module = (ModuleInstance) currentParameterContainer;
 			try {
+				System.out.println("MODULE SNIPPET CREATION");
+				System.out.println("cnvEngine " + cnvEngine.getModuleWriter().getClass().toString());
 				jEditorPaneSnippet.setText(cnvEngine.getModuleWriter().toString(module));
 			} catch (ConverterException e) {
 				jEditorPaneSnippet.setText(e.getMessage());
@@ -3034,9 +3036,11 @@ public class ConfDbGUI {
 			jEditorContainedInTask.setText(this.getAssignedTasks());
 			jEditorContainedInSwitchProducer.setText(this.getAssignedSwitchProducers());
 
-			ModuleInstance module = (ModuleInstance) currentParameterContainer;
+			EDAliasInstance edAlias = (EDAliasInstance) currentParameterContainer;
 			try {
-				jEditorPaneSnippet.setText(cnvEngine.getModuleWriter().toString(module));
+				System.out.println("EDALIAS SNIPPET CREATION");
+				System.out.println("cnvEngine " + cnvEngine.getEDAliasWriter().getClass().toString());
+				jEditorPaneSnippet.setText(cnvEngine.getEDAliasWriter().toString(edAlias));
 			} catch (ConverterException e) {
 				jEditorPaneSnippet.setText(e.getMessage());
 			}
