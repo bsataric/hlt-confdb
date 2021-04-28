@@ -348,10 +348,13 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 		int spModules = 0;
 		for (int i = 0; i < config.switchProducerCount(); i++) {
 			for (int j = 0; j < config.moduleCount(); j++) {
-				if (config.switchProducer(i).containsEntry(config.module(j).reference(0))) {
-					System.out.println("CONTAINS4!");
-					spModules++;
-				}
+				if (config.module(j).referenceCount() > 0)
+					for (int k = 0; k < config.module(j).referenceCount(); k++) {
+						if (config.switchProducer(i).containsEntry(config.module(j).reference(k))) {
+							System.out.println("CONTAINS4!");
+							spModules++;
+						}
+					}
 			}
 		}
 		System.out.println("spModules: " + spModules);
@@ -558,10 +561,13 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 				for (int j = 0; j < config.switchProducerCount(); j++) {
 					//System.out.println("SP: " + config.switchProducer(j));
 					//System.out.println("config.module(i): " + config.module(i));
-					if (config.switchProducer(j).containsEntry(config.module(i).reference(0))) {
-						System.out.println("CONTAINS3!");
-						return "";
-					}
+					if (config.module(i).referenceCount() > 0)
+						for (int k = 0; k < config.module(i).referenceCount(); k++) {
+							if (config.switchProducer(j).containsEntry(config.module(i).reference(k))) {
+								System.out.println("CONTAINS3!");
+								return "";
+							}
+						}
 				}
 				return config.module(i);
 			}
