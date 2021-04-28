@@ -531,8 +531,6 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 
 	/** get the i-th child node */
 	public Object getChild(Object parent, int i) {
-		Object [] empty = {};
-
 		if (parent.equals(config)) {
 			return level1Nodes.get(i);
 		} else if (parent instanceof StringBuffer) {
@@ -562,12 +560,10 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 					//System.out.println("config.module(i): " + config.module(i));
 					if (config.switchProducer(j).containsEntry(config.module(i).reference(0))) {
 						System.out.println("CONTAINS3!");
-						System.out.println("EMPTY: " + empty);
 						return "";
 					}
 				}
 				return config.module(i);
-				//return null;
 			}
 			if (parent.equals(outputsNode))
 				return config.output(i);

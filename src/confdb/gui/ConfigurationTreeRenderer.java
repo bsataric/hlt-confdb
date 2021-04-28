@@ -190,31 +190,13 @@ public class ConfigurationTreeRenderer extends DefaultTreeCellRenderer {
 					result += "<b>" + instance.name() + "</b>";
 				else
 					result += instance.name();
-			} else {
-				if (instance instanceof ModuleInstance) {
-					ModuleInstance mInstance = (ModuleInstance) instance;
-					//System.out.println(mInstance.referenceCount());
-					//System.out.println(mInstance.config().edAliasCount());
-					for (int i = 0; i < mInstance.config().switchProducerCount(); i++) {
-						System.out.println("SP: " + mInstance.config().switchProducer(i));
-						if (mInstance.config().switchProducer(i).containsEntry(mInstance.reference(0))) {
-							System.out.println("CONTAINS!");
-							result = "DELETE THIS";
-						}
-					}
-					//System.out.println(mInstance.reference(0).parent().parentPaths().length);
-					//TODO: see how to get SP from this if possible
-				}
-				if (result != "")
-					result += instance.name();
-			}
-			if (result != "") {
-				if (count > 0)
-					result += " <font color=#ff0000>[" + count + "]</font>";
-				if (unresolved > 0)
-					result += " <font color=#00ff00>[" + unresolved + "]</font>";
-				result += "</html>";
-			}
+			} else
+				result += instance.name();
+			if (count > 0)
+				result += " <font color=#ff0000>[" + count + "]</font>";
+			if (unresolved > 0)
+				result += " <font color=#00ff00>[" + unresolved + "]</font>";
+			result += "</html>";
 		} else if (node instanceof Path) {
 			Path path = (Path) node;
 			int entryCount = path.entryCount();
