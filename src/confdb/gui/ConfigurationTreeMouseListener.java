@@ -2639,6 +2639,7 @@ class SwitchProducerMenuListener implements ActionListener {
 		}
 		// add a module to the selected task
 		else {
+			System.out.println("AAA");
 			ConfigurationTreeActions.insertReference(tree, "Module", action);
 		} // else here is missing for EDALias see how to do it
 	}

@@ -345,7 +345,17 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 		int unsetModuleCount = config.unsetTrackedModuleParameterCount();
 		modulesNode.delete(0, modulesNode.length());
 		modulesNode.append("<html><b>Modules</b> (");
-		modulesNode.append(moduleCount);
+		int spModules = 0;
+		for (int i = 0; i < config.switchProducerCount(); i++) {
+			for (int j = 0; j < config.moduleCount(); j++) {
+				if (config.switchProducer(i).containsEntry(config.module(j).reference(0))) {
+					System.out.println("CONTAINS4!");
+					spModules++;
+				}
+			}
+		}
+		System.out.println("spModules: " + spModules);
+		modulesNode.append(moduleCount - spModules);
 		modulesNode.append(")");
 		if (unsetModuleCount > 0) {
 			modulesNode.append(" <font color=#ff0000>[");
@@ -521,6 +531,8 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 
 	/** get the i-th child node */
 	public Object getChild(Object parent, int i) {
+		Object [] empty = {};
+
 		if (parent.equals(config)) {
 			return level1Nodes.get(i);
 		} else if (parent instanceof StringBuffer) {
@@ -544,8 +556,19 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 				return config.task(i);
 			if (parent.equals(switchProducersNode))
 				return config.switchProducer(i);
-			if (parent.equals(modulesNode))
+			if (parent.equals(modulesNode)) {
+				for (int j = 0; j < config.switchProducerCount(); j++) {
+					//System.out.println("SP: " + config.switchProducer(j));
+					//System.out.println("config.module(i): " + config.module(i));
+					if (config.switchProducer(j).containsEntry(config.module(i).reference(0))) {
+						System.out.println("CONTAINS3!");
+						System.out.println("EMPTY: " + empty);
+						return "";
+					}
+				}
 				return config.module(i);
+				//return null;
+			}
 			if (parent.equals(outputsNode))
 				return config.output(i);
 			if (parent.equals(contentsNode))
