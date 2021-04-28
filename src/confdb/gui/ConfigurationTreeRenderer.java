@@ -473,14 +473,10 @@ public class ConfigurationTreeRenderer extends DefaultTreeCellRenderer {
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 		node = value;
 		setIcon(prepareIcon());
-		
 
 		xpath = null;
 		TreePath tp = tree.getPathForRow(row);
-		//System.out.println(tp); //TODO: try to intercept this module in loading
-
 		if (tp == null) {
-			//System.out.println("AAA");
 			setText(prepareText());
 		} else if ((node instanceof ModuleReference) && (tp.getPathCount() == 3)
 				&& (tp.getLastPathComponent() instanceof Path)
@@ -488,32 +484,14 @@ public class ConfigurationTreeRenderer extends DefaultTreeCellRenderer {
 			// workaround for TreeCellRenderer + getPathForRow bug: see
 			// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4433885
 			// just need to provide a sufficiently long string...
-			//System.out.println("BBB");
 			setText(prepareText().replaceAll("</html>", "XXXX</html>"));
 		} else {
-			//System.out.println("CCC");
+			//System.out.println("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			if ((tp.getPathCount() > 2) && (tp.getPathComponent(2) instanceof Path))
 				xpath = (Path) (tp.getPathComponent(2));
-			//System.out.println(tp);
 			setText(prepareText());
-			if (node instanceof ModuleInstance) {
-				ModuleInstance mInstance = (ModuleInstance) node;
-				//System.out.println(mInstance.referenceCount());
-				//System.out.println(mInstance.config().edAliasCount());
-				/*for (int i = 0; i < mInstance.config().switchProducerCount(); i++) {
-					System.out.println("SP: " + mInstance.config().switchProducer(i));
-					if (mInstance.config().switchProducer(i).containsEntry(mInstance.reference(0))) {
-						System.out.println("CONTAINS2!");
-						//return null;
-						setVisible(false);
-						setEnabled(false);
-						invalidate();
-					}
-				}*/
-				//System.out.println(mInstance.reference(0).parent().parentPaths().length);
-				//TODO: see how to get SP from this if possible
-			}
 		}
+
 		return this;
 	}
 
