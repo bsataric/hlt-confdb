@@ -348,13 +348,14 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 		int spModules = 0;
 		for (int i = 0; i < config.switchProducerCount(); i++) {
 			for (int j = 0; j < config.moduleCount(); j++) {
-				if (config.module(j).referenceCount() > 0)
-					for (int k = 0; k < config.module(j).referenceCount(); k++) {
-						if (config.switchProducer(i).containsEntry(config.module(j).reference(k))) {
+				if (config.module(j).referenceCount() > 0) {
+					//for (int k = 0; k < config.module(j).referenceCount(); k++) {
+						if (config.switchProducer(i).containsEntry(config.module(j).reference(0))) {
 							System.out.println("CONTAINS4!");
 							spModules++;
 						}
-					}
+					//}
+				}
 			}
 		}
 		System.out.println("spModules: " + spModules);
@@ -534,6 +535,7 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 
 	/** get the i-th child node */
 	public Object getChild(Object parent, int i) {
+		//System.out.println("II: " + i);
 		if (parent.equals(config)) {
 			return level1Nodes.get(i);
 		} else if (parent instanceof StringBuffer) {
@@ -558,16 +560,19 @@ public class ConfigurationTreeModel extends AbstractTreeModel {
 			if (parent.equals(switchProducersNode))
 				return config.switchProducer(i);
 			if (parent.equals(modulesNode)) {
+				System.out.println("I: " + i); 
+				System.out.println("config.module(i): " + config.module(i));
+				System.out.println("MOD REF COUNT: " + config.module(i).referenceCount());
 				for (int j = 0; j < config.switchProducerCount(); j++) {
 					//System.out.println("SP: " + config.switchProducer(j));
-					//System.out.println("config.module(i): " + config.module(i));
-					if (config.module(i).referenceCount() > 0)
-						for (int k = 0; k < config.module(i).referenceCount(); k++) {
-							if (config.switchProducer(j).containsEntry(config.module(i).reference(k))) {
+					if (config.module(i).referenceCount() > 0) {
+						//for (int k = 0; k < config.module(i).referenceCount(); k++) {
+							if (config.switchProducer(j).containsEntry(config.module(i).reference(0))) {
 								System.out.println("CONTAINS3!");
 								return "";
 							}
-						}
+						//}
+					}
 				}
 				return config.module(i);
 			}
